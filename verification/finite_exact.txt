@@ -1,0 +1,32 @@
+C3 exceptional solution: all 9 ordered equations hold exactly.
+Normalization residual: -2
+Full-rank Jacobian minor: (0, 1, 3, 5) -27*sqrt(3)/2 - 81*I/2
+
+C3 saturated Groebner basis:
+  -sqrt(3)*I*b**4 + b**3*(2*sqrt(3) + 2*I) + b**2*(-3 + sqrt(3)*I) - 3*I*b + t + 3/2 + sqrt(3)*I/2
+  b**4*(1 - sqrt(3)*I) + b**3*(3*sqrt(3)/2 + 5*I/2) + b**2*(-2 + sqrt(3)*I) + b*(sqrt(3) - 3*I) + c + 5/2 + sqrt(3)*I/2
+  -I*b**4 + b**3*(1 + sqrt(3)*I) + b**2*(-sqrt(3) - I) + b*(1 - sqrt(3)*I) + d + 2*I
+  a + I*b**4 + b**3*(-5/2 - sqrt(3)*I/2) + b**2*(sqrt(3) - 2*I) + sqrt(3)*I*b - 3*sqrt(3)/2 - I/2
+  b**5 + 2*I*b**4 - 2*b**3 + b**2*(sqrt(3) - I) + b*(1 + sqrt(3)*I) - sqrt(3)/2 + I/2
+Primitive polynomial factorization:
+  (b + sqrt(3)/2 + I/2)*(b**4 + b**3*(-sqrt(3)/2 + 3*I/2) + b**2*(-1/2 - sqrt(3)*I/2) + sqrt(3)*b - 1/2 + sqrt(3)*I/2)
+Discriminant: 147/2 + 147*sqrt(3)*I/2 = -147*r^2
+Exactly five reduced geometric points: one exceptional, four normalized.
+
+C2 x C2 anisotropic metric: all 16 ordered equations hold exactly.
+Normalization residual: -2
+Full-rank Jacobian minor: (0, 1, 2, 3, 4) 512
+Saturated Groebner basis: GroebnerBasis([t + 1, c + 1, e + 1, d + 1, b + 1, a - 1], t, c, e, d, b, a, domain='ZZ', order='lex')
+The solution scheme for this metric is one reduced rational point.
+
+N=32 coefficient-norm obstruction (root powers 1,3,5,7):
+  lambda=z^1, sign=+1: 2*z**3 + 12*z**2 + 14*z + 9, coefficient norm=37
+  lambda=z^1, sign=-1: 2*z**3 - 12*z**2 + 14*z - 9, coefficient norm=37
+  lambda=z^3, sign=+1: 18*z**3 + 12*z**2 - 2*z - 15, coefficient norm=47
+  lambda=z^3, sign=-1: 18*z**3 - 12*z**2 - 2*z + 15, coefficient norm=47
+  lambda=z^5, sign=+1: 2*z**3 - 12*z**2 - 18*z - 15, coefficient norm=47
+  lambda=z^5, sign=-1: 2*z**3 + 12*z**2 - 18*z + 15, coefficient norm=47
+  lambda=z^7, sign=+1: -14*z**3 - 12*z**2 - 2*z + 9, coefficient norm=37
+  lambda=z^7, sign=-1: -14*z**3 + 12*z**2 - 2*z - 9, coefficient norm=37
+
+All exact checks passed.

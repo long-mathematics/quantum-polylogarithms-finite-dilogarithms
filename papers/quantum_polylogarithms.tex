@@ -1,0 +1,1949 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=1.04in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{aliascnt}
+\usepackage{microtype}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{booktabs,array}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage[capitalize,noabbrev]{cleveref}
+\hypersetup{colorlinks=true,linkcolor=blue!35!black,citecolor=blue!35!black,urlcolor=blue!40!black,
+ pdftitle={Rational-Exponential Iterated Integrals and Quantum Polylogarithms},
+ pdfauthor={Christopher D. Long},
+ pdfsubject={Absolute fixed-parameter functional completeness, quantum polylogarithms, difference equations, shuffle algebras, pentagon crossed products}}
+\setlength{\emergencystretch}{3em}
+\numberwithin{equation}{section}
+\allowdisplaybreaks[2]
+\newtheorem{theorem}{Theorem}[section]
+\newaliascnt{proposition}{theorem}
+\newtheorem{proposition}[proposition]{Proposition}
+\aliascntresetthe{proposition}
+\newaliascnt{lemma}{theorem}
+\newtheorem{lemma}[lemma]{Lemma}
+\aliascntresetthe{lemma}
+\newaliascnt{corollary}{theorem}
+\newtheorem{corollary}[corollary]{Corollary}
+\aliascntresetthe{corollary}
+\theoremstyle{definition}
+\newaliascnt{definition}{theorem}
+\newtheorem{definition}[definition]{Definition}
+\aliascntresetthe{definition}
+\theoremstyle{remark}
+\newaliascnt{remark}{theorem}
+\newtheorem{remark}[remark]{Remark}
+\aliascntresetthe{remark}
+\newaliascnt{example}{theorem}
+\newtheorem{example}[example]{Example}
+\aliascntresetthe{example}
+\newcommand{\C}{\mathbb C}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb Z_{\geq0}}
+\newcommand{\dd}{\,d}
+\newcommand{\ii}{\mathrm i}
+\newcommand{\sh}{\operatorname{sh}}
+\newcommand{\Mer}{\operatorname{Mer}}
+\newcommand{\Sh}{\operatorname{Sh}}
+\newcommand{\Res}{\operatorname{Res}}
+\newcommand{\Frac}{\operatorname{Frac}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\trdeg}{\operatorname{trdeg}}
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\calF}{\mathcal F}
+\newcommand{\calR}{\mathcal R}
+\newcommand{\calS}{\mathcal S}
+\newcommand{\calW}{\mathcal W}
+\newcommand{\calV}{\mathcal V}
+\newcommand{\calB}{\mathcal B}
+\newcommand{\calQ}{\mathcal Q}
+\newcommand{\calL}{\mathcal L}
+\newcommand{\qh}{\hbar}
+\newcommand{\shuffle}{\mathbin{\amalg}}
+\newcommand{\ev}{\operatorname{ev}}
+\newcommand{\emptyword}{\varnothing}
+\newcommand{\Li}{\operatorname{Li}}
+\title{Rational-Exponential Iterated Integrals\\
+and Quantum Polylogarithms\\[0.4em]
+\large Absolute fixed-parameter completeness and a pentagon crossed product}
+\author{Christopher D. Long}
+\date{October 1, 2026\\\small Research draft, initial GitHub release}
+
+\begin{document}
+\maketitle
+\begin{center}\small\texttt{galizur@gmail.com}\end{center}
+
+\begin{abstract}
+We study Goncharov's quantum polylogarithms at a fixed positive irrational
+parameter. A Laplace transform of the cumulative momentum denominators gives
+an ordered iterated-integral presentation, with the upper $i0$ prescription
+justified on positively shifted contours. We compute the constant-linear
+space of translated weight-zero Fourier letters as a two-variable localization
+modulo Laurent polynomials. A residue argument makes this alphabet independent
+modulo meromorphically exact differentials, yielding shuffle completeness at
+all positive integral weights and depths in one common translation variable.
+We also present the entire weight-zero differential field. After adjoining
+$e^x$ and $e^{x/\hbar}$, it is a rational function field in the derivatives of
+explicit normalized mixed towers. These derivatives are algebraically
+independent: any dependence would produce an additive difference telescoper,
+which a single-pole-orbit obstruction excludes. Combining the two presentations
+classifies nonlinear coefficient relations and positive-weight relations over
+$\C(x)$, without an unspecified meromorphic coefficient field. A separate
+Ore-denominator argument proves the faithful cyclic crossed-product
+presentation of Goncharov's pentagon operator algebra. The scalar and operator
+statements remain separate. No parameter-changing completeness, scalar
+quantum-cluster action, or arithmetic specialization theorem is asserted.
+\end{abstract}
+
+\medskip
+\noindent\textit{Keywords.} Quantum polylogarithms; rational-exponential integrals;
+iterated integrals; differential algebraic independence; difference equations;
+shuffle algebra; quantum dilogarithm; Ore domain.
+
+\clearpage
+\tableofcontents
+\clearpage
+
+\section{Introduction and principal statements}\label{sec:intro}
+
+Goncharov defines quantum polylogarithms by multiple Fourier integrals with
+cumulative momentum denominators and proves modular difference equations,
+continuation properties, and shuffle identities \cite{Goncharov2026}.
+Their integrands are rational expressions in the momentum variables and their
+exponentials. We use his term \emph{rational-exponential integrals} for this
+analytic class. Our first purpose is to exhibit a direct ordered-integral
+presentation of the positive-integral-weight sector. Our second is to determine
+the constant-linear letter relations, the nonlinear algebraic structure of
+the weight-zero differential field, and the polynomial relations among the
+resulting iterated integrals.
+
+Throughout the completeness theorems, $\qh$ and finitely many offsets are
+fixed, and the variable is a common additive translation of the arguments.
+The shuffle theorem is first proved over the actual single-valued meromorphic
+weight-zero field. An independent difference-algebra argument then presents
+that field as a rational function field in an explicit differential
+transcendence basis. The resulting combined presentation is \emph{absolute}
+in the sense that its coefficient field over $\C(x)$ is fully presented.
+It is a functional relation theorem, not a numerical Kontsevich--Zagier
+theorem, and uses no arithmetic specialization or $E$-function value lifting.
+
+The analytic reduction is related to Chen's iterated integrals
+\cite{Chen1977} and to the modified reduced-bar formalism used by Brown
+\cite[Section~3]{Brown2009}. The general shuffle machinery is not new.
+The specific inputs here are the contour-level reduction, the quantum-letter
+quotient, the residue obstruction for iterated integrals, and a normalized
+tower presentation of the nonlinear coefficient field. The latter uses the
+classical connection between additive difference equations, telescoping,
+and algebraic independence \cite{Schneider2010,HardouinSinger2008}; the
+needed obstruction is proved directly for these towers.
+In a separate appendix we give an operator result for the pentagon structure
+of \cite{Goncharov2007}. It neither uses nor implies an action on the scalar
+iterated-integral algebra.
+
+\subsection{The functions and the common translation variable}
+
+Use the normalization
+\[
+ \sh z=e^z-e^{-z}=2\sinh z,
+ \qquad
+ H_{a,b}(p)=\frac1{\sh(\pi p)^a\sh(\pi\qh p)^b},
+\]
+where $a,b\in\N$ and $a+b>0$. The weight-zero Fourier letter is
+\begin{equation}\label{eq:L-intro}
+ L_{a,b}(z)=-\ii\int_{\R+\ii0}e^{-\ii pz}H_{a,b}(p)\dd p.
+\end{equation}
+Dependence on $\qh$ is suppressed. For $\mathbf n=(n_1,\ldots,n_m)$ with
+$n_j\geq1$, put $|\mathbf n|=\sum n_j$ and
+\begin{equation}\label{eq:F-intro}
+ \calF_{\mathbf a,\mathbf b,\mathbf n}^{\qh}(\boldsymbol\omega)
+ =\ii^{|\mathbf n|-m}
+ \int_{(\R+\ii0)^m}
+ \prod_{j=1}^m
+ \frac{e^{-\ii p_j\omega_j}H_{a_j,b_j}(p_j)}
+ {(p_1+\cdots+p_j)^{n_j}}
+ \dd p_1\cdots\dd p_m .
+\end{equation}
+This is \cite[Definition~1.2]{Goncharov2026}, restricted to positive integral
+weights and nontrivial kernels. The precise contour convention is given in
+\cref{sec:contours}.
+
+Fix a nonempty finite set $\Delta\subset\C$. Write
+\begin{equation}\label{eq:translation}
+ \omega_j=x+\delta_j-\ii\pi(r_j+s_j\qh),
+ \qquad \delta_j\in\Delta,\quad r_j,s_j\in\Z.
+\end{equation}
+Set
+\[
+ \Lambda_{\qh}=\ii\pi(\Z+\qh\Z),\qquad
+ \Delta/\Lambda_{\qh}
+ =\{\text{cosets represented by elements of }\Delta\}.
+\]
+Let $\calW_{\qh,\Delta}$ be the complex vector space of actual functions spanned by
+\begin{equation}\label{eq:alphabet}
+ x\longmapsto L_{a,b}\bigl(x+\delta-\ii\pi(r+s\qh)\bigr).
+\end{equation}
+Let $K_{\qh,\Delta}$ be the differential subfield of $\Mer(\C)$ generated over
+$\C(x)$ by these functions. Equivalently it is generated as a field by the
+functions in \eqref{eq:alphabet} and all their derivatives. Its constants are
+$\C$.
+
+Define
+\begin{equation}\label{eq:spectral-intro}
+ \begin{split}
+ \calR&=\C[X^{\pm1},Y^{\pm1}],\qquad
+ d_X=X^{-1}-X,\quad d_Y=Y^{-1}-Y,\\
+ \calS&=\calR[d_X^{-1},d_Y^{-1}],\qquad
+ \calV_{\qh,\Delta}=\bigoplus_{\delta\in\Delta/\Lambda_{\qh}}\calS/\calR.
+ \end{split}
+\end{equation}
+A representative $\delta$ is chosen in each coset. Different choices identify
+the summands by multiplication by Laurent monomials.
+
+\begin{theorem}[Letter presentation and residue exactness]\label{thm:mainletters}
+Suppose $\qh>0$ is irrational. There is an isomorphism of complex vector spaces
+\begin{equation}\label{eq:mainlettermap}
+ \calV_{\qh,\Delta}\xrightarrow{\sim}\calW_{\qh,\Delta},\qquad
+ \left[X^rY^s d_X^{-a}d_Y^{-b}\right]_{\delta}
+ \longmapsto L_{a,b}\bigl(x+\delta-\ii\pi(r+s\qh)\bigr).
+\end{equation}
+The only constant-linear relations in one coset are the two centered
+modular lowering relations, with the terminal symbol $e_{0,0}$ set equal to
+zero. Moreover,
+\begin{equation}\label{eq:mainexactness}
+ \Omega\in\calW_{\qh,\Delta}\dd x,\quad
+ \Omega=dG,\quad G\in\Mer(\C)
+ \quad\Longrightarrow\quad \Omega=0.
+\end{equation}
+In particular $\calW_{\qh,\Delta}\dd x$ embeds into
+$K_{\qh,\Delta}\dd x/dK_{\qh,\Delta}$.
+\end{theorem}
+
+For $f_1,\ldots,f_m\in\calW_{\qh,\Delta}$ define the ascending Chen integral
+\begin{equation}\label{eq:Chen-intro}
+ I[f_1|\cdots|f_m](x)
+ =\int_{-\infty<t_1<\cdots<t_m<x}
+ \prod_{j=1}^m f_j(t_j)\dd t_1\cdots\dd t_m.
+\end{equation}
+Initially all variables lie on the horizontal ray ending at $x$, in a
+sufficiently far left half-plane. These integrals converge and give holomorphic
+functions there. The empty word has value $1$.
+
+\begin{theorem}[Shuffle completeness over the weight-zero field]\label{thm:mainshuffle}
+Suppose $\qh>0$ is irrational and $\Delta\subset\C$ is finite and nonempty. Let
+$\calQ_{\qh,\Delta}^{>0}$ be the $K_{\qh,\Delta}$-algebra generated by all
+functions \eqref{eq:F-intro} on the common-translation lines
+\eqref{eq:translation}, with arbitrary depth, $a_j,b_j\geq0$,
+$a_j+b_j>0$, and $n_j\geq1$. Use the branch continued from the defining
+strips into $\Re\omega_j<0$.
+Then iterated integration induces an isomorphism
+\begin{equation}\label{eq:mainshuffle}
+ K_{\qh,\Delta}\otimes_{\C}\Sh(\calV_{\qh,\Delta})
+ \xrightarrow{\sim}\calQ_{\qh,\Delta}^{>0}.
+\end{equation}
+The isomorphism uses \eqref{eq:mainlettermap} on letters. In particular, after
+choosing an ordered basis of $\calV_{\qh,\Delta}$, the iterated integrals of
+Lyndon words are algebraically independent over $K_{\qh,\Delta}$ and generate
+the algebra. No generic-position hypothesis on the offsets is required:
+coincident lattice cosets are combined as in \eqref{eq:spectral-intro}.
+\end{theorem}
+
+Here $\Sh(V)=\bigoplus_{n\geq0}V^{\otimes n}$ denotes the shuffle algebra,
+not the tensor algebra with concatenation product. The theorem presents the
+\emph{iterated-integral extension} of the coefficient field. It does not
+identify $\calV_{\qh,\Delta}$ with the entire de~Rham quotient of that field.
+
+\subsection{The coefficient field and the absolute presentation}
+
+Choose a representative $\delta$ for each coset in $\Delta/\Lambda_\qh$, and
+let
+\begin{equation}\label{eq:representatives}
+ \mathscr R_\Delta
+ =\{\delta+\pi\ii(e+f\qh):\delta\in\Delta/\Lambda_\qh,\ e,f\in\{0,1\}\}.
+\end{equation}
+Here and below the notation $\delta\in\Delta/\Lambda_\qh$ refers to those
+chosen representatives. Thus $\mathscr R_\Delta$ represents
+$(\Delta+\Lambda_\qh)/(2\Lambda_\qh)$, with four representatives per original
+coset. Put
+\begin{equation}\label{eq:tower-intro}
+ J_{b,\rho}(x)=L_{1,b}(x+\rho+\pi\ii\qh(b-1)),\qquad
+ b\geq1,\quad\rho\in\mathscr R_\Delta,
+ \qquad D=\frac{d}{dx}.
+\end{equation}
+
+\begin{theorem}[Explicit nonlinear coefficient field]\label{thm:maincoeff}
+Fix $\qh>0$ irrational and finite nonempty $\Delta$. The functions
+$U=e^x$ and $V=e^{x/\qh}$ are algebraically independent over $\C(x)$, and
+\begin{equation}\label{eq:maincoeff}
+ K_{\qh,\Delta}
+ =\C(x,U,V)\bigl(D^jJ_{b,\rho}:b\geq1,\ j\geq0,
+                                     \ \rho\in\mathscr R_\Delta\bigr).
+\end{equation}
+All the displayed derivatives are algebraically independent over
+$\C(x,U,V)$. In particular the $J_{b,\rho}$ form a differential
+transcendence basis and $K_{\qh,\Delta}$ is a purely differentially
+transcendental extension of $\C(x,U,V)$.
+\end{theorem}
+
+Let $\mathscr A_\Delta$ be an ordered complex basis of $\calV_{\qh,\Delta}$,
+and write $\mathscr L_\Delta$ for its Lyndon words. Introduce independent
+indeterminates $u,v$, $y_{b,\rho,j}$ indexed as in \eqref{eq:maincoeff}, and
+$t_\ell$ for $\ell\in\mathscr L_\Delta$. Every polynomial or rational
+expression uses only finitely many of them.
+
+\begin{corollary}[Absolute fixed-parameter functional completeness]
+\label{cor:mainabsolute}
+Evaluation gives a $\C(x)$-algebra isomorphism
+\begin{equation}\label{eq:mainabsolute}
+ \C(x)\bigl(u,v,y_{b,\rho,j}\bigr)
+       [t_\ell:\ell\in\mathscr L_\Delta]
+ \xrightarrow{\sim}\calQ_{\qh,\Delta}^{>0},
+\end{equation}
+where $u\mapsto e^x$, $v\mapsto e^{x/\qh}$,
+$y_{b,\rho,j}\mapsto D^jJ_{b,\rho}$, and $t_\ell\mapsto I[\ell]$.
+Consequently these functions are jointly algebraically independent over
+$\C(x)$, and every element on the right reduces to a polynomial in the
+Lyndon integrals with rational coefficients in the displayed independent
+weight-zero variables.
+\end{corollary}
+
+The target in \eqref{eq:mainabsolute} includes the entire differential field
+$K_{\qh,\Delta}$ by its definition in \cref{thm:mainshuffle}; it is not merely
+the positive-weight algebra over $\C(x)$. Thus \cref{cor:mainabsolute}
+presents the nonlinear coefficient field as well as its shuffle extension.
+\Cref{thm:maincoeff} is proved in \cref{sec:coefficients}; the combined
+statement is proved in \cref{sec:absolute-completeness}.
+
+\subsection{What the proof establishes}
+
+The scalar proof has four steps. First, the two tails of
+\eqref{eq:L-intro} give a residue array with generating function
+$-d_X^{-a}d_Y^{-b}$. Irrationality makes its lattice labels injective. Second,
+the cumulative denominators in \eqref{eq:F-intro} are Laplace transformed into
+powers of gaps in an ordered simplex. Polynomial gap factors reduce to
+translated weight-zero letters by a Fourier integration-by-parts identity.
+Third, a minimal-word-length argument gives independence of Chen words over
+$K_{\qh,\Delta}$. Fourth, the two modular translations reduce the coefficient
+field to normalized mixed towers. Additive algebraic dependence would force
+a rational difference telescoper; a pole at a single position in an infinite
+multiplicative orbit excludes every such telescoper. This proves the
+coefficient-field presentation and removes the unspecified base field from
+the combined completeness statement.
+
+\Cref{sec:limits} records the limits of these statements. In particular,
+continuation of a proved identity along a common path is not an independence
+theorem after numerical specialization. Radchenko--Wheeler's algebraicity
+results for arithmetic special values \cite{RadchenkoWheeler2026} are related
+motivation, not an input to the proofs below. Their finite-scheme questions
+are not considered here.
+
+\section{Contours and meromorphic Fourier letters}\label{sec:contours}
+
+Fix $\qh>0$ and write
+\[
+ \eta_{\qh}=\min(1,\qh^{-1}),\qquad
+ c_{a,b}=\pi(a+b\qh).
+\]
+For $0<\eta<\eta_{\qh}$ let $C_\eta=\R+\ii\eta$, oriented from left to right.
+No zero of either hyperbolic-sine factor lies in
+$0<\Im p<\eta_{\qh}$.
+
+\begin{lemma}[Fixed-height definition of the upper prescription]\label{lem:height}
+For $|\Im z|<c_{a,b}$, the integral
+\begin{equation}\label{eq:Lheight}
+ -\ii\int_{C_\eta}e^{-\ii pz}H_{a,b}(p)\dd p
+\end{equation}
+is absolutely convergent, is independent of $\eta\in(0,\eta_{\qh})$, and is
+holomorphic in $z$. It equals the contour with a small upper detour around
+$p=0$. Thus it defines \eqref{eq:L-intro} without taking a nonuniform
+integrand limit at the origin.
+\end{lemma}
+\begin{proof}
+On each fixed horizontal line avoiding the zeros of the denominator,
+\[
+ |H_{a,b}(t+\ii\eta)|\leq C_\eta e^{-c_{a,b}|t|}.
+\]
+If $z=u+\ii v$, then
+$|e^{-\ii(t+\ii\eta)z}|=e^{tv+\eta u}$.
+On compact substrips the product is bounded by an integrable exponential,
+locally uniformly in $z$. The same remains true after any number of
+$z$-derivatives, since only powers of $p$ are introduced.
+Cauchy's theorem on rectangles between two positive heights applies; the
+vertical sides tend to zero by this estimate. Deformation to a path that is
+real outside a small disk and passes above the origin crosses no pole.
+\end{proof}
+
+\subsection{A two-tail expansion}
+
+For $a\in\N$ set
+\begin{equation}\label{eq:Ca}
+ C_a(m)=
+ \begin{cases}
+ \binom{a+m-1}{m},&a>0,\\
+ 1,&a=0,\ m=0,\\
+ 0,&a=0,\ m>0,
+ \end{cases}
+ \qquad m\in\N.
+\end{equation}
+For $p>0$ one has
+\begin{equation}\label{eq:positiveexp}
+ H_{a,b}(p)=\sum_{m,n\geq0}C_a(m)C_b(n)e^{-A_{m,n}p},\qquad
+ A_{m,n}=\pi\bigl(a+2m+\qh(b+2n)\bigr).
+\end{equation}
+Terms with zero coefficient are omitted; every remaining $A_{m,n}$ is positive.
+
+\begin{proposition}[Normally convergent meromorphic expansion]\label{prop:tails}
+Choose $0<\rho<\eta_{\qh}$ and let $\Gamma_\rho$ be the upper semicircle from
+$-\rho$ to $\rho$. Define the entire function
+\[
+ E_\rho(z)=-\ii\int_{\Gamma_\rho}e^{-\ii pz}H_{a,b}(p)\dd p.
+\]
+Then $L_{a,b}$ extends to a single-valued meromorphic function on $\C$, and
+\begin{equation}\label{eq:tails}
+ \begin{split}
+ L_{a,b}(z)=E_\rho(z)-\ii\sum_{m,n\geq0}C_a(m)C_b(n)
+ \left\{
+ \frac{e^{-\rho(A_{m,n}+\ii z)}}{A_{m,n}+\ii z}
+ +(-1)^{a+b}\frac{e^{-\rho(A_{m,n}-\ii z)}}{A_{m,n}-\ii z}
+ \right\}.
+ \end{split}
+\end{equation}
+Both series converge normally on compact sets away from their displayed
+poles. If $\qh$ is irrational, all nonzero terms within either tail have
+distinct poles, and
+\begin{equation}\label{eq:residues}
+ \Res_{z=\ii A_{m,n}}L_{a,b}(z)\dd z=-C_a(m)C_b(n),\qquad
+ \Res_{z=-\ii A_{m,n}}L_{a,b}(z)\dd z=(-1)^{a+b}C_a(m)C_b(n).
+\end{equation}
+In particular every pole is simple.
+\end{proposition}
+\begin{proof}
+Use \cref{lem:height} to split the contour into its two real tails and
+$\Gamma_\rho$. On $[\rho,\infty)$ the expansion \eqref{eq:positiveexp} is
+absolutely convergent. In the defining strip it may be integrated term by
+term, giving the first series in \eqref{eq:tails}. On the negative tail put
+$p=-q$ and use $H_{a,b}(-q)=(-1)^{a+b}H_{a,b}(q)$.
+
+The coefficients $C_a(m)C_b(n)$ have at most polynomial growth, whereas
+$e^{-\rho A_{m,n}}$ decays exponentially in every active index. On a fixed
+compact set of $z$ values, all sufficiently large denominators have size
+comparable to $A_{m,n}$. The finitely many other denominators are bounded
+away from zero when the displayed poles are excluded. This proves normal
+convergence. The compact contour contribution is entire by differentiation
+under its integral.
+
+The possible pole sets are locally finite, since $\qh>0$ and a bound on
+$A_{m,n}$ bounds all active indices. Equality of two positive pole labels
+implies $(m-m')+\qh(n-n')=0$, hence equality of the labels for irrational
+$\qh$. The residues follow directly from the linear denominators in
+\eqref{eq:tails}; their exponential numerators are $1$ at the poles.
+\end{proof}
+
+\begin{remark}
+Although $\Z+\qh\Z$ is dense in $\R$ when $\qh$ is real irrational, the
+\emph{positive cone} appearing in one letter's pole set is locally finite.
+Only finite unions of translated cones are used in any argument. The
+geometric expansions in \eqref{eq:positiveexp} are never applied across
+$p=0$.
+\end{remark}
+
+\subsection{Lowering, multiplication, and reflection}
+
+\begin{proposition}[Exact letter identities]\label{prop:identities}
+For $a,b\geq0$, $a+b>0$, the meromorphic letters satisfy
+\begin{align}
+ L_{a,b}(z+\ii\pi)-L_{a,b}(z-\ii\pi)&=L_{a-1,b}(z)
+ &&(a\geq1),\label{eq:lowerX}\\
+ L_{a,b}(z+\ii\pi\qh)-L_{a,b}(z-\ii\pi\qh)&=L_{a,b-1}(z)
+ &&(b\geq1),\label{eq:lowerY}
+\end{align}
+where the terminal symbol on the right is defined to be $L_{0,0}=0$.
+Furthermore,
+\begin{equation}\label{eq:mult}
+ \begin{split}
+ zL_{a,b}(z)
+ ={}&\ii\pi a\bigl(L_{a+1,b}(z+\ii\pi)+L_{a+1,b}(z-\ii\pi)\bigr)\\
+ &+\ii\pi\qh b\bigl(L_{a,b+1}(z+\ii\pi\qh)
+                    +L_{a,b+1}(z-\ii\pi\qh)\bigr).
+ \end{split}
+\end{equation}
+Finally,
+\begin{equation}\label{eq:reflection}
+ L_{a,b}(z)-(-1)^{a+b}L_{a,b}(-z)=P_{a,b}(z),\qquad
+ P_{a,b}(z)=-2\pi\Res_{p=0}\bigl(e^{-\ii pz}H_{a,b}(p)\bigr),
+\end{equation}
+where $P_{a,b}$ is a polynomial of degree $a+b-1$.
+\end{proposition}
+\begin{proof}
+If the lowered index is nonterminal, subtract the integrands on a common
+convergence strip. The multipliers are $e^{\pi p}-e^{-\pi p}$ and
+$e^{\pi\qh p}-e^{-\pi\qh p}$, respectively. This proves
+\eqref{eq:lowerX}--\eqref{eq:lowerY} on a nonempty strip, and then everywhere
+by meromorphic continuation. These are also the depth-zero cases of
+\cite[Section~3.0.1]{Goncharov2026}.
+
+The terminal cases require a separate check; they are not integrals of a
+constant Fourier multiplier. Closing a rectangular contour upwards for
+$\Re z<0$ gives
+\begin{equation}\label{eq:axesbase}
+ L_{1,0}(z)=\sum_{k\geq1}(-1)^ke^{kz}
+          =-\frac{e^z}{1+e^z},\qquad
+ L_{0,1}(z)=\qh^{-1}L_{1,0}(z/\qh).
+\end{equation}
+For the first identity the residues at $p=\ii k$, $k\geq1$, are
+$(-1)^ke^{kz}/(2\pi)$; heights $k+1/2$ make the top edge tend to zero.
+The second follows by rescaling $p$. The required terminal centered
+differences vanish by the respective $2\pi\ii$ and $2\pi\ii\qh$
+periodicities. This justifies $L_{0,0}=0$ solely as a notation for the terminal
+\emph{identity}.
+
+For \eqref{eq:mult}, integrate
+$\partial_p(e^{-\ii pz}H_{a,b}(p))$ along $C_\eta$.
+The endpoints vanish exponentially in the defining strip. Since
+\[
+ H'_{a,b}(p)=-\pi a(e^{\pi p}+e^{-\pi p})H_{a+1,b}(p)
+             -\pi\qh b(e^{\pi\qh p}+e^{-\pi\qh p})H_{a,b+1}(p),
+\]
+and $\int e^{-\ii pz}H_{a,b}(p)\dd p=\ii L_{a,b}(z)$, the result is
+\eqref{eq:mult}. Every shifted integral converges in the original strip.
+
+For reflection, substitute $p\mapsto-p$ in the reflected integral. The
+upper contour becomes the lower contour, and the parity of $H_{a,b}$ is
+$(-1)^{a+b}$. The upper contour minus the lower one is clockwise around the
+origin, so multiplication by $-\ii$ gives the factor $-2\pi$ in
+\eqref{eq:reflection}. The pole order at the origin is $a+b$, and the residue
+of its product with $e^{-\ii pz}$ is a polynomial of the stated degree.
+\end{proof}
+
+\begin{remark}
+The reflection correction is a polynomial, hence its product with $\dd z$
+is exact over $\C(z)$. It must not be discarded as a zero \emph{function}.
+Our residue normalization gives $P_{1,0}=-1$, consistently with
+\eqref{eq:axesbase}. Compare the quantum Bernoulli reflection formulas in
+\cite[Section~5]{Goncharov2026}.
+\end{remark}
+
+\section{Residue tails and the complete letter quotient}\label{sec:residues}
+
+Assume from now until \cref{sec:laplace} that $\qh>0$ is irrational. Put
+$T_{r,s}f(z)=f(z-\ii\pi(r+s\qh))$. Use the rings
+$\calR,\calS$ and elements $d_X,d_Y$ of \eqref{eq:spectral-intro}.
+
+\subsection{The algebraic presentation}
+
+\begin{lemma}[Localization presentation]\label{lem:presentation}
+Let $M$ be the $\calR$-module generated by $e_{a,b}$, $a,b\geq0$, with
+\begin{equation}\label{eq:module-rel}
+ e_{0,0}=0,\qquad d_Xe_{a,b}=e_{a-1,b}\ (a\geq1),\qquad
+ d_Ye_{a,b}=e_{a,b-1}\ (b\geq1).
+\end{equation}
+Then
+\begin{equation}\label{eq:module-iso}
+ M\xrightarrow{\sim}\calS/\calR,\qquad
+ e_{a,b}\longmapsto[d_X^{-a}d_Y^{-b}].
+\end{equation}
+\end{lemma}
+\begin{proof}
+The displayed map respects every relation and is surjective. For injectivity,
+write an arbitrary finite element as $\sum P_{a,b}e_{a,b}$ and choose $A,B$
+bounding its indices. The relations give
+\[
+ \sum P_{a,b}e_{a,b}=Qe_{A,B},\qquad
+ Q=\sum P_{a,b}d_X^{A-a}d_Y^{B-b}.
+\]
+If its image in $\calS/\calR$ vanishes, then
+$Q=d_X^Ad_Y^B P$ for some $P\in\calR$. Thus
+$Qe_{A,B}=Pe_{0,0}=0$.
+\end{proof}
+
+By \cref{prop:identities}, $X,Y$ may act on actual letters by $T_{1,0}$ and
+$T_{0,1}$; \eqref{eq:module-rel} then gives a well-defined map from $M$
+to their constant-linear span. We prove that this analytic map is injective.
+
+\subsection{Tail injectivity}
+
+There is an injective expansion map
+\begin{equation}\label{eq:expansionmap}
+ \calS\hookrightarrow\C[[X,Y]][X^{-1},Y^{-1}],\qquad
+ d_X^{-a}d_Y^{-b}\longmapsto
+ \sum_{m,n\geq0}C_a(m)C_b(n)X^{a+2m}Y^{b+2n}.
+\end{equation}
+Indeed $d_X=(1-X^2)/X$, and similarly for $Y$; denominators $1-X^2$ and
+$1-Y^2$ are units in the formal power-series ring. The expansion has finite
+support if and only if the original element lies in $\calR$. Consequently
+\begin{equation}\label{eq:tail-inj}
+ \calS/\calR\hookrightarrow
+ \C[[X,Y]][X^{-1},Y^{-1}]/\calR
+\end{equation}
+is injective.
+
+\begin{theorem}[Residue-tail detection]\label{thm:tail}
+For a finite expression
+\begin{equation}\label{eq:finiteOmega}
+ \Omega(z)=\sum c_{a,b,r,s}\,T_{r,s}L_{a,b}(z)\dd z
+\end{equation}
+set
+\[
+ F_\Omega(X,Y)=\sum c_{a,b,r,s}X^rY^sd_X^{-a}d_Y^{-b}\in\calS.
+\]
+If all finite residues of $\Omega$ vanish, then $F_\Omega\in\calR$.
+In particular, a nonzero class $[F_\Omega]\in\calS/\calR$ forces a nonzero
+finite residue of $\Omega$.
+\end{theorem}
+\begin{proof}
+For a translated letter the positive poles from \cref{prop:tails} have labels
+\begin{equation}\label{eq:positive-label}
+ (k,\ell)=(r+a+2m,s+b+2n),\qquad
+ z=\ii\pi(k+\qh\ell),
+\end{equation}
+and residues $-C_a(m)C_b(n)$. Their generating series is therefore
+$-X^rY^sd_X^{-a}d_Y^{-b}$.
+
+The negative poles have labels
+$(r-a-2m,s-b-2n)$. A finite collection of positive supports lies in a finite
+union of coordinatewise lower-bounded quadrants, and a finite collection of
+negative supports lies in a finite union of coordinatewise upper-bounded
+quadrants. Their intersection is finite. Since
+$(k,\ell)\mapsto k+\qh\ell$ is injective on $\Z^2$, positive and negative
+poles can therefore cancel at only finitely many labels.
+
+If all actual residues vanish, the expansion of $F_\Omega$ has finite
+support. The injectivity statement \eqref{eq:tail-inj} implies
+$F_\Omega\in\calR$.
+\end{proof}
+
+\begin{corollary}[One-coset exactness]\label{cor:onecoset}
+The map
+\[
+ \calS/\calR\longrightarrow
+ \operatorname{span}_{\C}\{T_{r,s}L_{a,b}\},\qquad
+ [X^rY^sd_X^{-a}d_Y^{-b}]\longmapsto T_{r,s}L_{a,b}
+\]
+is an isomorphism. A form in this span is the differential of a globally
+single-valued meromorphic function if and only if it is the zero form.
+\end{corollary}
+\begin{proof}
+Surjectivity and well-definedness follow from \cref{lem:presentation} and
+\cref{prop:identities}. A zero analytic expression has zero residues, so
+\cref{thm:tail} makes its formal class zero; this proves injectivity.
+If $G$ is meromorphic, its Laurent derivative has no residue at any finite
+point. Apply \cref{thm:tail} and then the same injectivity argument.
+The converse is immediate.
+\end{proof}
+
+\begin{remark}\label{rem:notcontact}
+The quotient by $\calR$ in \eqref{eq:module-iso} removes \emph{finite-support
+residue tails}. It is not an identification of Laurent multipliers with
+contact distributions. The passage from a zero tail class to an actual zero
+function uses the exact lowering identities, including the separately verified
+terminal identities. Residues by themselves would not exclude a nonzero
+entire remainder.
+\end{remark}
+
+\subsection{Offsets and an explicit basis}
+
+The possible poles of letters in the $\delta$-coset lie in
+$-\delta+\Lambda_{\qh}$. For inequivalent offsets these sets are disjoint.
+For equivalent offsets, their letters are identified by the corresponding
+Laurent monomial. Applying \cref{cor:onecoset} in each disjoint coset proves
+\cref{thm:mainletters}.
+
+There is also a simple vector-space basis for the quotient, so the statement
+does not depend on an unspecified cohomology calculation.
+
+\begin{proposition}[Partial-fraction basis]\label{prop:basis}
+A complex basis of $\calS/\calR$ is given by the classes of
+\begin{align}
+ &(X-\epsilon)^{-a}Y^n,
+ &&\epsilon\in\{1,-1\},\ a\geq1,\ n\in\Z,\label{eq:basis1}\\
+ &X^m(Y-\epsilon)^{-b},
+ &&\epsilon\in\{1,-1\},\ b\geq1,\ m\in\Z,\label{eq:basis2}\\
+ &(X-\epsilon)^{-a}(Y-\epsilon')^{-b},
+ &&\epsilon,\epsilon'\in\{1,-1\},\ a,b\geq1.\label{eq:basis3}
+\end{align}
+Every basis class is represented by a finite constant-linear combination of
+translated Fourier letters.
+\end{proposition}
+\begin{proof}
+Partial fractions in one variable give the direct sum
+\[
+ \C[X^{\pm1},(1-X^2)^{-1}]
+ =\C[X^{\pm1}]
+ \oplus\bigoplus_{\epsilon=\pm1,\ a\geq1}\C(X-\epsilon)^{-a}.
+\]
+Tensor this decomposition with its $Y$-analogue and quotient out the
+Laurent--Laurent summand. This gives precisely
+\eqref{eq:basis1}--\eqref{eq:basis3} and their independence.
+Finally
+\[
+ \frac1{X-\epsilon}=-\frac{X+\epsilon}{Xd_X}
+\]
+expresses every such basis element in the presentation of
+\cref{lem:presentation}; the assertion about letters follows.
+\end{proof}
+
+\section{Left-half-plane normalization and polynomial closure}\label{sec:decay}
+
+The residue results are global, whereas the iterated integrals need a
+compatible normalization at an infinite endpoint. We establish it before
+using any bar construction.
+
+\begin{lemma}[Decay of all fixed translates]\label{lem:decay}
+Let $\qh>0$, and fix $a,b$ with $a+b>0$. For every compact interval
+$J\subset\R$ and every $0<\eta<\eta_{\qh}$,
+\begin{equation}\label{eq:decay}
+ L_{a,b}(u+\ii v)=O(e^{\eta u})\quad(u\longrightarrow-\infty),
+ \qquad v\in J.
+\end{equation}
+The estimate is locally uniform for every fixed finite family of translates.
+Each function in $\calW_{\qh,\Delta}$ is holomorphic in a sufficiently far
+left half-plane and satisfies such an estimate there.
+\end{lemma}
+\begin{proof}
+On a compact substrip of $|\Im z|<c_{a,b}$, \cref{lem:height} on the line
+$C_\eta$ gives \eqref{eq:decay} directly.
+For the one-frequency kernels, \eqref{eq:mult} and
+\eqref{eq:lowerX} give
+\begin{equation}\label{eq:axisrecursion}
+ L_{a+1,0}(z)=\frac{z+\ii\pi(a-1)}{2\pi\ii a}\,
+ L_{a,0}(z-\ii\pi)\qquad(a\geq1).
+\end{equation}
+Together with \eqref{eq:axesbase}, this expresses $L_{a,0}$ as a polynomial
+of degree $a-1$ times a shifted logistic function. It therefore satisfies
+\eqref{eq:decay} on any bounded imaginary interval for $\eta<1$.
+Rescaling gives $L_{0,b}(z)=\qh^{-1}L_{b,0}(z/\qh)$ and the assertion
+for $a=0$.
+
+For $a,b>0$, rewrite \eqref{eq:lowerX} as
+\[
+ L_{a,b}(z+2\pi\ii)=L_{a,b}(z)+L_{a-1,b}(z+\pi\ii).
+\]
+Since $c_{a,b}>\pi$, any fixed bounded imaginary interval can be covered by
+finitely many translates of compact substrips of the defining strip by
+$2\pi\ii\Z$. Iterating the displayed identity reduces its additional terms
+to the case with smaller $a$. Induction, starting at $a=0$, proves the
+estimate. All poles lie on the imaginary axis by \cref{prop:tails}; after
+finitely many offsets a left half-plane avoids them all.
+\end{proof}
+
+\begin{proposition}[Polynomial multiples remain in the letter space]\label{prop:polyclosure}
+For every finite offset set $\Delta$ one has
+\begin{equation}\label{eq:polyclosure}
+ \C[x]\calW_{\qh,\Delta}\subseteq\calW_{\qh,\Delta}.
+\end{equation}
+More explicitly, any polynomial multiple of a letter in
+\eqref{eq:alphabet} is a finite constant-linear combination of letters in
+its same offset coset.
+\end{proposition}
+\begin{proof}
+For $u=x+\delta-\ii\pi(r+s\qh)$, write $x=u-\delta+\ii\pi(r+s\qh)$.
+Formula \eqref{eq:mult} expresses $uL_{a,b}(u)$ in translated letters.
+Iteration proves the result for powers of $x$, and then for all polynomials.
+\end{proof}
+
+\begin{remark}[Reflected letters]
+Reflection need not preserve the decay normalization at $-\infty$.
+By \eqref{eq:reflection}, adjoining reflected letters, and if necessary
+replacing $\Delta$ by $\Delta\cup(-\Delta)$, enlarges the alphabet only by
+polynomials. Their differentials are exact. In fact
+$\calW_{\qh,\Delta}\cap\C[x]=0$ by \cref{lem:decay}, and
+\cref{thm:mainletters} implies that an element of
+$(\calW_{\qh,\Delta}+\C[x])\dd x$ is meromorphically exact precisely when
+its $\calW$-component is zero. Arbitrary reflected words at an infinite
+endpoint require boundary subtraction or a finite basepoint; no such
+regularization is implicit in our main theorem.
+\end{remark}
+
+\section{The nonlinear weight-zero field}\label{sec:coefficients}
+
+We now present the coefficient field itself. The residue theorem of
+\cref{sec:residues} detects constant-linear exactness, but does not by itself
+exclude polynomial relations between meromorphic functions. For that purpose
+we use an additive difference equation and a rational pole-orbit obstruction.
+The general relation between telescoping and algebraic independence is
+classical; see \cite{Schneider2010,HardouinSinger2008}. The particular lemmas
+needed below are proved directly. No differential closure of the difference
+constants, or assertion that an analytic extension has no new difference
+constants, is required.
+
+Throughout this section $\qh>0$ is irrational, $\Delta$ is finite and nonempty,
+and $D=d/dx$. Use the representative set $\mathscr R_\Delta$ and the towers
+$J_{b,\rho}$ of \eqref{eq:tower-intro}. Write
+\begin{equation}\label{eq:elementarybase}
+ U=e^x,\qquad V=e^{x/\qh},\qquad F_\qh=\C(x,U,V),\qquad
+ \mathfrak q=e^{2\pi\ii/\qh}.
+\end{equation}
+Here $U,V$ denote functions; the proof below identifies them with independent
+rational-function variables over $\C(x)$. The parameter $\mathfrak q$ in this
+section is distinct from the quantum-torus parameter in \cref{app:operator}.
+Define commuting automorphisms on $\Mer(\C)$ by
+\[
+ (\sigma f)(x)=f(x+2\pi\ii),\qquad
+ (\tau f)(x)=f(x+2\pi\ii\qh).
+\]
+They commute with $D$ and preserve $F_\qh$.
+
+\subsection{The elementary field and its difference constants}
+
+\begin{lemma}[Elementary independence and fixed field]\label{lem:fixedfield}
+The functions $U,V$ are algebraically independent over $\C(x)$. On their
+rational function field,
+\begin{equation}\label{eq:sigma-base}
+ \sigma(x)=x+2\pi\ii,\quad \sigma(U)=U,\quad
+ \sigma(V)=\mathfrak qV,\qquad F_\qh^\sigma=\C(U).
+\end{equation}
+Furthermore,
+\begin{equation}\label{eq:D-base}
+ D=\partial_x+U\partial_U+\qh^{-1}V\partial_V
+ \quad\hbox{on }F_\qh.
+\end{equation}
+\end{lemma}
+\begin{proof}
+After clearing denominators, a polynomial relation between $U$ and $V$ would
+be a finite identity
+\[
+ \sum_{m,n}p_{m,n}(x)e^{(m+n/\qh)x}=0,
+ \qquad p_{m,n}\in\C[x].
+\]
+Distinct pairs $(m,n)$ give distinct real rates because $\qh$ is irrational.
+Divide by the exponential with largest rate and let real $x\to+\infty$.
+All terms but its polynomial coefficient tend to zero. A nonzero polynomial
+cannot tend to zero in this way. Removing that term and repeating proves
+independence.
+
+Put $E=\C(U)$, $t=2\pi\ii$, and regard $F_\qh=E(x,V)$. The automorphism
+fixes $E$ and sends $(x,V)$ to $(x+t,\mathfrak qV)$.
+Suppose $0\ne f=P/Q\in F_\qh$ is fixed, where $P,Q\in E[x,V]$ are coprime.
+The identity $\sigma(P)Q=P\sigma(Q)$ implies that $P$ divides $\sigma(P)$.
+Total degree is preserved, so $\sigma(P)=cP$ with $c\in E^\times$;
+then also $\sigma(Q)=cQ$.
+
+Write $P=\sum_np_n(x)V^n$. For every nonzero coefficient polynomial,
+\[
+ \mathfrak q^n p_n(x+t)=c p_n(x).
+\]
+Leading coefficients in $x$ give $c=\mathfrak q^n$. As $\mathfrak q$ is not
+a root of unity, only one $n$ can occur. The remaining $p_n$ is a periodic
+polynomial, hence belongs to $E$. Thus $P=aV^n$. The same argument gives
+$Q=bV^m$, and the common multiplier forces $n=m$. Hence $f=a/b\in E$.
+This proves \eqref{eq:sigma-base}; \eqref{eq:D-base} is the chain rule.
+\end{proof}
+
+\begin{remark}
+The difference-constant field in \eqref{eq:sigma-base} is $\C(U)$, not $\C$.
+In particular the telescoping coefficients below must be allowed to be
+arbitrary rational functions of $U$. By contrast, the constants for the
+ordinary derivative $D$ in every field between $\C$ and $\Mer(\C)$ are
+$\C$. The two notions of constants must not be interchanged.
+\end{remark}
+
+\subsection{Additive dependence implies a rational telescoper}
+
+\begin{lemma}[Additive-dependence obstruction]\label{lem:additive-dependence}
+Let $F\subseteq E$ be difference fields of characteristic zero, with the
+same notation $\sigma$ for their compatible automorphisms. Suppose
+$y_1,\ldots,y_m\in E$ satisfy
+\[
+ \sigma(y_i)=y_i+b_i,\qquad b_i\in F.
+\]
+If the $y_i$ are algebraically dependent over $F$, then there are
+$c_i\in F^\sigma$, not all zero, and $g\in F$ such that
+\begin{equation}\label{eq:additive-telescoper}
+ \sum_i c_i b_i=\sigma(g)-g.
+\end{equation}
+No hypothesis on $E^\sigma$ is made.
+\end{lemma}
+\begin{proof}
+Let $\mathfrak a$ be the nonzero kernel of evaluation
+$F[Z_1,\ldots,Z_m]\to E$, $Z_i\mapsto y_i$.
+The semilinear affine operator
+\[
+ \mathcal T(P)=\sigma(P)(Z_1+b_1,\ldots,Z_m+b_m)
+\]
+preserves $\mathfrak a$, since evaluation of $\mathcal T(P)$ is
+$\sigma(P(y_1,\ldots,y_m))$.
+Choose a graded monomial order and a nonzero $P\in\mathfrak a$ whose leading
+monomial is least possible, with leading coefficient normalized to $1$.
+Translation preserves its leading monomial and coefficient. Therefore
+$\mathcal T(P)-P$, if nonzero, would contradict minimality. Thus
+$\mathcal T(P)=P$.
+
+Let $n=\deg_ZP\geq1$. An appropriate formal partial derivative of total order
+$n-1$ is a nonconstant affine-linear polynomial
+\[
+ Q(Z)=c_0+\sum_i c_iZ_i.
+\]
+Formal partial derivatives in the $Z_i$ commute with $\mathcal T$, because
+$b_i\in F$. Hence $\mathcal T(Q)=Q$. Comparing coefficients gives
+$\sigma(c_i)=c_i$ and
+$\sigma(c_0)+\sum_i c_i b_i=c_0$.
+At least one $c_i$ is nonzero, and $g=-c_0$ proves the claim.
+The derivative $Q$ need not itself lie in $\mathfrak a$; its invariance is
+all that is used.
+\end{proof}
+
+We use only the implication in this lemma. The existence of a telescoper
+need not imply algebraic dependence if the extension introduces new
+$\sigma$-constants. This is why no converse, or unchanged-constants assertion,
+is implicit here. Applying the lemma to finitely many derivatives of the
+$y_i$ is legitimate whenever $D\sigma=\sigma D$.
+
+\subsection{A pole at a single orbit position cannot telescope}
+
+In this subsection, poles mean valuations of the rational function field
+$E(x)(V)$ along the linear polynomials $V-\alpha$, with $\alpha\in\C^\times$.
+They are algebraic poles in the independent variable $V$, not assertions
+about a topological ordering of poles of a meromorphic function of $x$.
+
+\begin{lemma}[Finite-string obstruction]\label{lem:orbit-poles}
+Let $E$ be a field containing $\C$, let $t\in\C^\times$, and let
+$q\in\C^\times$ have infinite multiplicative order. On $E(x,V)$ let
+$\sigma$ fix $E$ and send $(x,V)$ to $(x+t,qV)$.
+If $r=\sigma(g)-g$ with $g\in E(x,V)$, then, in each orbit
+$\{\alpha q^n:n\in\Z\}$, the set of finite $V$-poles of $r$ is either
+empty or contains at least two positions.
+\end{lemma}
+\begin{proof}
+For a nonzero $g$, the set
+\[
+ S=\{n\in\Z:g\text{ has a pole along }V-\alpha q^n\}
+\]
+is finite. The corresponding set for $\sigma(g)$ is $S-1$.
+Indeed, substitution by $(x+t,qV)$ transports the local valuation at one
+position to the preceding position and sends every nonzero leading
+coefficient in $E(x)$ to a nonzero one.
+If $S$ is empty, so is the pole set of $\sigma(g)-g$ on the orbit.
+Otherwise let $m=\min S$, $n=\max S$. At $m-1$ only $\sigma(g)$ has a pole;
+at $n$ only $g$ has a pole. Both poles survive in the difference, and
+$m-1<n$.
+An irreducible divisor not in this orbit cannot map into it under $\sigma$,
+since the inverse image of $V-\alpha q^k$ is again a constant linear divisor
+in the same orbit. Thus other, possibly $x$-dependent denominator factors
+of $g$ do not affect this argument.
+\end{proof}
+
+\subsection{Normalized mixed towers and their increments}
+
+For $b\geq1$ and $\rho\in\mathscr R_\Delta$, put
+\begin{align}
+ a_\rho&=\exp((\rho+\pi\ii)/\qh),&
+ \alpha_\rho&=-a_\rho^{-1},&
+ R_\rho(V)&=-\frac{a_\rho V}{1+a_\rho V}
+           =-\frac{V}{V-\alpha_\rho},\label{eq:rho-logistic}\\
+ A_{b,\rho}(x)&=
+ \frac{\displaystyle\prod_{\ell=1}^{b-1}
+ (x+\rho+\pi\ii+\pi\ii\qh(2\ell-1))}
+ {\qh(2\pi\ii\qh)^{b-1}(b-1)!}.&&&\label{eq:tower-polynomial}
+\end{align}
+The empty product gives $A_{1,\rho}=1/\qh$.
+
+\begin{proposition}[Tower difference equations]\label{prop:tower-increments}
+The towers satisfy
+\begin{equation}\label{eq:tower-sigma}
+ \sigma J_{b,\rho}-J_{b,\rho}=A_{b,\rho}(x)R_\rho(V).
+\end{equation}
+For $b\geq1$ they also satisfy
+\begin{equation}\label{eq:tower-tau}
+ \tau^{-1}J_{b,\rho}=J_{b,\rho}-J_{b-1,\rho},
+ \qquad J_{0,\rho}(x):=L_{1,0}(x+\rho-\pi\ii\qh)\in F_\qh.
+\end{equation}
+The poles $\alpha_\rho$ lie in pairwise distinct $\mathfrak q$-orbits, and
+$\deg_xA_{b,\rho}=b-1$.
+\end{proposition}
+\begin{proof}
+The first lowering identity gives
+\[
+ \sigma J_{b,\rho}-J_{b,\rho}
+ =L_{0,b}(x+\rho+\pi\ii+\pi\ii\qh(b-1)).
+\]
+Iterating \eqref{eq:axisrecursion} gives the explicit formula
+\begin{equation}\label{eq:axis-product}
+ L_{b,0}(z)=
+ \frac{\displaystyle\prod_{\ell=1}^{b-1}(z+\pi\ii(2\ell-b))}
+ {(2\pi\ii)^{b-1}(b-1)!}
+ L_{1,0}(z-\pi\ii(b-1)).
+\end{equation}
+Use $L_{0,b}(z)=\qh^{-1}L_{b,0}(z/\qh)$ and substitute the preceding
+argument. The polynomial factor is \eqref{eq:tower-polynomial}, and the
+remaining logistic factor is \eqref{eq:rho-logistic}. This proves
+\eqref{eq:tower-sigma}. The second lowering identity, centered at
+$x+\rho+\pi\ii\qh(b-2)$, gives \eqref{eq:tower-tau}, including $b=1$.
+
+Finally,
+\[
+ \frac{\alpha_\rho}{\alpha_{\rho'}}\in\mathfrak q^{\Z}
+ \quad\Longleftrightarrow\quad
+ \rho-\rho'\in2\pi\ii(\Z+\qh\Z)=2\Lambda_\qh.
+\]
+This follows by using the kernel $2\pi\ii\Z$ of the complex exponential.
+The representatives are distinct modulo $2\Lambda_\qh$. The degree assertion
+is immediate from the displayed product.
+\end{proof}
+
+\subsection{Independence of every finite collection of tower derivatives}
+
+\begin{proposition}[No rational telescoper for the tower increments]
+\label{prop:no-telescope}
+If finitely many $c_{b,\rho,j}(U)\in\C(U)$ and a function $g\in F_\qh$
+satisfy
+\begin{equation}\label{eq:jet-telescoper}
+ \sum_{b,\rho,j}c_{b,\rho,j}(U)
+ D^j\bigl(A_{b,\rho}(x)R_\rho(V)\bigr)=\sigma(g)-g,
+\end{equation}
+then every $c_{b,\rho,j}$ is zero.
+\end{proposition}
+\begin{proof}
+Fix an active $\rho$ and let $j$ be the largest derivative order with a
+nonzero coefficient for this $\rho$. At the valuation $V=\alpha_\rho$,
+\begin{equation}\label{eq:leading-jet-pole}
+ D^j(A_{b,\rho}R_\rho)
+ =\frac{(-1)^{j+1}j!\,\alpha_\rho^{j+1}\qh^{-j}A_{b,\rho}(x)}
+ {(V-\alpha_\rho)^{j+1}}
+ +\text{terms of pole order at most }j.
+\end{equation}
+For $j=0$ this follows from
+$R_\rho=-1-\alpha_\rho/(V-\alpha_\rho)$. Inductively, only the
+$(V/\qh)\partial_V$ part of $D$ raises the pole order; its leading value at
+the divisor is $\alpha_\rho/\qh$. Derivatives of the polynomial in $x$ give
+lower pole orders.
+
+The leading coefficient in the $\rho$-part of the left side of
+\eqref{eq:jet-telescoper} is therefore a fixed nonzero scalar times
+\[
+ \sum_b c_{b,\rho,j}(U)A_{b,\rho}(x).
+\]
+It is nonzero: the $A_{b,\rho}$ have different degrees in the independent
+variable $x$, so they are linearly independent over $\C(U)$.
+Hence that part has a pole at $\alpha_\rho$, and nowhere else in its
+$\mathfrak q$-orbit. Other $\rho'$ contribute no pole on the same orbit by
+\cref{prop:tower-increments}. Thus the entire left side has exactly one pole
+position on this orbit, contradicting \cref{lem:orbit-poles} with
+$E=\C(U)$, $t=2\pi\ii$, and $q=\mathfrak q$.
+\end{proof}
+
+\begin{corollary}[Differential independence of the mixed towers]
+\label{cor:tower-independent}
+The functions $D^jJ_{b,\rho}$, for $b\geq1$, $j\geq0$, and
+$\rho\in\mathscr R_\Delta$, are algebraically independent over $F_\qh$.
+Equivalently the $J_{b,\rho}$ are differentially algebraically independent
+over that differential field.
+\end{corollary}
+\begin{proof}
+Apply \cref{lem:additive-dependence} to any finite collection of these
+functions in the difference field $\Mer(\C)$. Their increments are
+$D^j(A_{b,\rho}R_\rho)$ because $D$ and $\sigma$ commute. By
+\cref{lem:fixedfield} the resulting coefficients would lie in $\C(U)$.
+\Cref{prop:no-telescope} excludes the nontrivial telescoper, so the finite
+collection is independent. Algebraic or differential-algebraic dependence
+would involve only a finite collection.
+\end{proof}
+
+\subsection{Reduction of every weight-zero generator}
+
+\begin{proposition}[Generation by the normalized towers]
+\label{prop:tower-generate}
+One has
+\begin{equation}\label{eq:tower-generation}
+ K_{\qh,\Delta}
+ =F_\qh\bigl(D^jJ_{b,\rho}:b\geq1,\ j\geq0,
+                         \ \rho\in\mathscr R_\Delta\bigr).
+\end{equation}
+Every original translated Fourier letter and every derivative has a finite
+rational expression in the displayed generators. Such a reduction uses only
+\eqref{eq:axesbase}, the two lowering identities, \eqref{eq:mult}, and their
+ordinary differential consequences.
+\end{proposition}
+\begin{proof}
+Fix one $\delta\in\Delta$. For
+$f=L_{1,0}(x+\delta)$ and $g=L_{0,1}(x+\delta)$,
+\[
+ U=-e^{-\delta}\frac{f}{1+f},\qquad
+ V=-e^{-\delta/\qh}\frac{\qh g}{1+\qh g}.
+\]
+These identities of meromorphic functions prove $F_\qh\subset K_{\qh,\Delta}$;
+the denominators are not the zero functions. Each $J_{b,\rho}$ is an allowed
+lattice translate, and so are its derivatives. Thus the right side of
+\eqref{eq:tower-generation} is contained in the left side.
+Call the right side $F_*$. It is a differential field by construction.
+
+All axis letters belong to $F_\qh$, by \eqref{eq:axis-product} and rescaling.
+Every $L_{1,b}(x+\eta)$ with $\eta\in\Delta+\Lambda_\qh$ is
+$\sigma^n\tau^mJ_{b,\rho}$ for some $n,m\in\Z$ and
+$\rho\in\mathscr R_\Delta$. The $b$-dependent offset in the tower is
+subtracted before choosing its representative modulo $2\Lambda_\qh$.
+Equations \eqref{eq:tower-sigma} and \eqref{eq:tower-tau} show that $F_*$ is
+preserved by both shifts and their inverses. More explicitly,
+\[
+ \sigma^{-1}J_{b,\rho}
+ =J_{b,\rho}-\sigma^{-1}(A_{b,\rho}R_\rho),\qquad
+ \tau J_{b,\rho}=J_{b,\rho}+\tau J_{b-1,\rho}.
+\]
+The last equation is finite by induction on $b$, starting with
+$J_{0,\rho}\in F_\qh$. Differentiating all these identities treats the jet
+generators. Thus all translates of the $a=1$ mixed letters lie in $F_*$.
+
+For $a\geq1$ and $b\geq1$, combine \eqref{eq:mult} at $z+\pi\ii$ with
+\eqref{eq:lowerX} for $L_{a+1,b}$ to obtain
+\begin{equation}\label{eq:reduce-a}
+ \begin{split}
+ L_{a+1,b}(z)
+ ={}&\frac{z-\pi\ii(a-1)}{2\pi\ii a}L_{a,b}(z+\pi\ii)\\
+ &-\frac{\qh b}{2a}\bigl(
+ L_{a,b+1}(z+\pi\ii+\pi\ii\qh)
+ +L_{a,b+1}(z+\pi\ii-\pi\ii\qh)\bigr).
+ \end{split}
+\end{equation}
+Induction on the first index reduces every mixed letter to the preceding
+case. Each step lowers that index, although the second index can increase;
+hence the reduction is finite. The new offsets are still in
+$\Delta+\Lambda_\qh$. Since $F_*$ is differential, all derivatives also
+belong to it. This proves the reverse inclusion.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:maincoeff}]
+\Cref{prop:tower-generate} proves generation.
+\Cref{lem:fixedfield,cor:tower-independent} prove that $U,V$ and all tower
+derivatives are jointly algebraically independent over $\C(x)$.
+Consequently evaluation identifies the indicated rational function field
+with $K_{\qh,\Delta}$. The differential structure is given by
+\eqref{eq:D-base} and $D(D^jJ_{b,\rho})=D^{j+1}J_{b,\rho}$.
+\end{proof}
+
+\begin{example}[One offset and the two terminal corrections]
+For $\Delta=\{0\}$ one may take
+\[
+ \mathscr R_\Delta=\{0,\pi\ii,\pi\ii\qh,\pi\ii(1+\qh)\}.
+\]
+For every $b\geq1$ these give four differentially independent towers; all
+towers and all their derivatives are independent jointly over $F_\qh$.
+For each representative,
+\[
+ \sigma J_{1,\rho}-J_{1,\rho}=\qh^{-1}R_\rho(V),\qquad
+ \tau J_{1,\rho}-J_{1,\rho}=L_{1,0}(x+\rho+\pi\ii\qh).
+\]
+Thus the towers are not themselves periodic. The elementary corrections in
+both directions are essential, especially for the case $b=1$.
+\end{example}
+
+\begin{remark}[Exact scope of the nonlinear presentation]
+The pole calculation is in $\C(U)(x)(V)$; it does not rely on $|\mathfrak q|$
+being different from $1$. Infinite order is sufficient. Irrationality is
+nevertheless indispensable. At $\qh=1$ the integral gives
+$J_{1,0}=L_{1,1}=L_{2,0}\in\C(x,e^x)$, so the independence statement is false.
+Nor is independence asserted after adjoining arbitrary single-valued
+meromorphic functions: those could include the $J_{b,\rho}$ themselves.
+The coefficient-field presentation is precisely over $F_\qh$.
+\end{remark}
+
+\section{The Laplace--simplex and Chen identification}\label{sec:laplace}
+
+This section only requires $\qh>0$, not irrationality. Let
+$a_j,b_j\geq0$, $a_j+b_j>0$, and $n_j\geq1$.
+
+\begin{definition}[Several-variable upper prescription]
+In \eqref{eq:F-intro}, use $p_j\in C_{\eta_j}$ with
+$0<\eta_j<\eta_{\qh}$. The notation $(\R+\ii0)^m$ means the value obtained
+with positive heights, continued within that positive-height chamber towards
+zero. It is not the product of independent real-axis principal values.
+\end{definition}
+
+\begin{lemma}\label{lem:multiheight}
+On the product strip
+\begin{equation}\label{eq:strip}
+ |\Im\omega_j|<c_{a_j,b_j}\qquad(1\leq j\leq m),
+\end{equation}
+\eqref{eq:F-intro} is absolutely convergent on every fixed set of positive
+heights and is independent of those heights.
+\end{lemma}
+\begin{proof}
+For $q_j=p_1+\cdots+p_j$,
+$\Im q_j=\eta_1+\cdots+\eta_j>0$, so
+$|q_j|^{-n_j}\leq(\eta_1+\cdots+\eta_j)^{-n_j}$.
+The remaining factors have product exponential decay in the real momentum
+variables by the proof of \cref{lem:height}. Vary one height at a time.
+All cumulative denominators involving that variable retain positive imaginary
+part throughout the deformation, and the hyperbolic-sine factors have no poles
+in the intervening strip. Rectangle estimates prove independence.
+\end{proof}
+
+\begin{theorem}[Laplace--simplex identity]\label{thm:laplace}
+For $\boldsymbol\omega$ in \eqref{eq:strip},
+\begin{equation}\label{eq:laplace-simplex}
+ \begin{split}
+ \calF_{\mathbf a,\mathbf b,\mathbf n}^{\qh}(\boldsymbol\omega)
+ =\int_{s_1>\cdots>s_m>0}
+ \prod_{j=1}^m L_{a_j,b_j}(\omega_j-s_j)
+ \frac{(s_j-s_{j+1})^{n_j-1}}{(n_j-1)!}
+ \dd s_1\cdots\dd s_m,
+ \qquad s_{m+1}=0.
+ \end{split}
+\end{equation}
+The integral on the right is absolutely convergent and locally uniformly so.
+Both sides determine the same continued germ wherever the left side is
+continued along a common path. In particular, the right side gives a
+holomorphic continuation to $\Re\omega_j<0$ for all $j$.
+\end{theorem}
+\begin{proof}
+Take fixed positive heights and put $q_j=p_1+\cdots+p_j$.
+For $n\geq1$ and $\Im q>0$,
+\begin{equation}\label{eq:Laplaceone}
+ q^{-n}=\frac{(-\ii)^n}{(n-1)!}
+ \int_0^\infty t^{n-1}e^{\ii qt}\dd t.
+\end{equation}
+Insert this identity for each $q_j^{-n_j}$. On a compact substrip the absolute
+value of the resulting integrand is bounded by a constant times
+\begin{equation}\label{eq:Fubini-bound}
+ \prod_{j=1}^m e^{-\epsilon_j|\Re p_j|}
+ \prod_{j=1}^m t_j^{n_j-1}
+ e^{-(\eta_1+\cdots+\eta_j)t_j},\qquad \epsilon_j>0.
+\end{equation}
+This is integrable in every real momentum and every $t_j>0$, so Fubini applies.
+Set $s_j=t_j+\cdots+t_m$. This has Jacobian $1$ and transforms the positive
+orthant into the ordered simplex in \eqref{eq:laplace-simplex}. Moreover,
+\[
+ \sum_jq_jt_j=\sum_jp_js_j,
+ \qquad
+ \ii^{|\mathbf n|-m}(-\ii)^{|\mathbf n|}=\ii^{-m}.
+\]
+The separate $p_j$-integrals are
+$\ii L_{a_j,b_j}(\omega_j-s_j)$ by \cref{lem:height}. Their factors of $\ii$
+cancel the prefactor, proving the formula for the actual positive-height
+prescription.
+
+For convergence of the right side, \cref{lem:height} on fixed $C_\eta$ gives
+$|L_{a_j,b_j}(\omega_j-s_j)|\leq C e^{-\eta s_j}$ on compact substrips.
+This dominates every polynomial gap factor. To reach
+$\Re\omega_j<0$ with arbitrary imaginary parts, use \cref{lem:decay} for the
+large $s_j$ and holomorphy of each letter in the left half-plane for bounded
+$s_j$. These estimates are locally uniform, giving a holomorphic integral on
+the product of left half-planes. It agrees with the original function on the
+nonempty overlap. Uniqueness of analytic continuation proves the final
+assertion about common paths; it does not assert that a fixed undeformed
+simplex represents every continued branch.
+\end{proof}
+
+\begin{corollary}[An ascending Chen presentation]\label{cor:Chen}
+Write $\omega_j=x+\delta_j$ with fixed offsets, allowing lattice shifts to be
+absorbed in them. Put $\theta_j(t)=L_{a_j,b_j}(t+\delta_j)\dd t$ and $e=\dd t$.
+On a sufficiently far left half-plane,
+\begin{equation}\label{eq:Chen-weighted}
+ \calF_{\mathbf a,\mathbf b,\mathbf n}^{\qh}
+ (x+\delta_1,\ldots,x+\delta_m)
+ =I[\theta_1|e^{n_1-1}|\theta_2|e^{n_2-1}|\cdots|
+       \theta_m|e^{n_m-1}](x).
+\end{equation}
+Here $e^k$ means $k$ consecutive letters, and $I$ uses ascending order from
+$-\infty$ to $x$. In particular, when all $n_j=1$ the right side is the pure
+word $I[\theta_1|\cdots|\theta_m]$.
+\end{corollary}
+\begin{proof}
+Set $t_j=x-s_j$ in \eqref{eq:laplace-simplex}. Then
+$-\infty<t_1<\cdots<t_m<x$, and, with $t_{m+1}=x$,
+$s_j-s_{j+1}=t_{j+1}-t_j$. Finally
+\[
+ \frac{(v-u)^k}{k!}
+ =\int_{u<u_1<\cdots<u_k<v}\dd u_1\cdots\dd u_k.
+\]
+This inserts exactly the displayed blocks of $e$'s. For complex $x$ all
+variables run along the same horizontal ray; the parametrization by the
+real $s_j$ fixes the orientation without an additional sign.
+\end{proof}
+
+\begin{remark}
+The letters $\theta_j$ in \eqref{eq:Chen-weighted} are quantum Fourier
+transforms, not rational algebraic differentials. Thus this presentation is
+not an expression of irrational-parameter quantum polylogarithms as ordinary
+mixed-Tate iterated integrals. It gives a direct transform-level explanation
+of the shuffle structure recorded in \cite[Theorem~3.7]{Goncharov2026}.
+\end{remark}
+
+\begin{proposition}[Elimination of the polynomial gap blocks]\label{prop:weight-reduction}
+Every function on the left of \eqref{eq:Chen-weighted} is a finite
+$\C[x]$-linear combination of pure words with letters in
+$\calW_{\qh,\Delta}$. Every pure word in this space is a finite constant-linear
+combination of quantum polylogarithms with all weights $n_j=1$.
+\end{proposition}
+\begin{proof}
+Rather than integrate exact letters separately from an infinite endpoint,
+expand the polynomial
+\[
+ \prod_{j=1}^m\frac{(t_{j+1}-t_j)^{n_j-1}}{(n_j-1)!},\qquad t_{m+1}=x,
+\]
+as a finite sum of monomials $c x^{k_0}\prod_jt_j^{k_j}$.
+Each $t_j^{k_j}L_{a_j,b_j}(t_j+\delta_j)$ is a finite constant-linear
+combination of translated letters by \cref{prop:polyclosure}. Substitution
+into the absolutely convergent simplex integral gives the first claim.
+For the converse use multilinearity and the case $n_1=\cdots=n_m=1$ of
+\cref{cor:Chen}.
+\end{proof}
+
+\section{The shuffle differential algebra and word independence}\label{sec:bar}
+
+We give the algebraic argument in the generality needed here, distinguishing
+a chosen letter space from the whole de~Rham quotient of the coefficient
+field. Let $(K,D)$ be a differential field of characteristic zero with
+constant field $C$, and let $V\subset K$ be a $C$-vector subspace such that
+\begin{equation}\label{eq:Vcondition}
+ V\cap DK=0.
+\end{equation}
+Equivalently, the map $V\to K/DK$ is injective.
+
+\begin{definition}[Shuffle differential algebra]\label{def:bar}
+Set $\calB(K,V)=K\otimes_C\Sh_C(V)$. After choosing a basis
+$\{f_\alpha\}_{\alpha\in\mathscr A}$ of $V$, write its word tensors as
+$[\alpha_1|\cdots|\alpha_n]$. Extend $D$ by
+\begin{equation}\label{eq:barD}
+ D_{\calB}\bigl(g[\alpha_1|\cdots|\alpha_n]\bigr)
+ =(Dg)[\alpha_1|\cdots|\alpha_n]
+ +g f_{\alpha_n}[\alpha_1|\cdots|\alpha_{n-1}],
+\end{equation}
+with the second term omitted for the empty word.
+The associated two-term differential complex is
+$\calB\xrightarrow{D_{\calB}}\calB\dd x$.
+\end{definition}
+
+The formula is a derivation for shuffle: the last letter of a shuffled word
+comes from exactly one of its two factors. It defines the usual
+one-variable reduced-bar model for the selected alphabet. The constant word
+factor $\Sh_C(V)$ has its deconcatenation Hopf structure; $\calB$ is a
+commutative differential $K$-algebra and a left comodule algebra over that
+Hopf algebra via
+\begin{equation}\label{eq:coaction}
+ g[\alpha_1|\cdots|\alpha_n]\longmapsto
+ \sum_{j=0}^n[\alpha_1|\cdots|\alpha_j]\otimes
+ g[\alpha_{j+1}|\cdots|\alpha_n].
+\end{equation}
+Here differentiation acts only in the second factor. We do not assert that
+\eqref{eq:barD} is a Hopf-algebra derivation for a coproduct differentiated in
+both factors. No canonical choice of representatives of all of $K/DK$ is
+being made.
+
+\begin{theorem}[Independence of iterated words]\label{thm:wordind}
+Suppose an extension differential field realizes functions $I_w$ indexed by
+words in $\mathscr A$, with $I_{\emptyword}=1$ and
+\begin{equation}\label{eq:wordderivative}
+ D I_{v\alpha}=f_\alpha I_v.
+\end{equation}
+Assume the coefficient field $K$ embeds in this extension and the
+$f_\alpha$ represent $C$-linearly independent classes in $K/DK$.
+Then the $I_w$ are linearly independent over $K$.
+If they satisfy the shuffle identities, evaluation
+$\calB(K,V)\to K[I_w]$ is an isomorphism of differential $K$-algebras.
+\end{theorem}
+\begin{proof}
+Suppose a nonzero formal relation $\sum_wg_wI_w=0$ exists, with finite
+support. Choose one minimizing the maximal word length $n$, then minimizing
+the number of its nonzero length-$n$ coefficients. Length zero is impossible
+because $K$ embeds. Divide by a chosen top coefficient so that it becomes $1$.
+
+Differentiate the relation. By \eqref{eq:wordderivative}, its top coefficients
+are $Dg_w$, and one of them is zero. If any top coefficient is nonzero, the
+result is a nonzero relation with fewer top words, a contradiction. Thus all
+top coefficients are constants $c_w\in C$. The differentiated relation now
+has length at most $n-1$, so by minimality it is formally zero. For each
+prefix $v$ of length $n-1$ its coefficient is
+\[
+ Dg_v+\sum_{\alpha}c_{v\alpha}f_\alpha=0.
+\]
+The classes of the $f_\alpha$ are independent in $K/DK$, hence all
+$c_{v\alpha}$ vanish. This contradicts the choice of the top coefficient.
+The first assertion follows. Shuffle makes evaluation an algebra map, and
+word independence proves its injectivity; surjectivity is its definition.
+\end{proof}
+
+\begin{remark}
+This minimal-length proof is the unipotent iterated-integral counterpart of
+the familiar antiderivative-independence argument. It is given in full so that
+no unstated differential-Galois hypothesis is required. The bar and
+iterated-integral background is classical; see \cite{Chen1977,Brown2009}.
+In particular the argument does not use an arithmetic theorem about values.
+\end{remark}
+
+\begin{corollary}[Constants and Lyndon generators]\label{cor:lyndon}
+The constants of $(\calB(K,V),D_{\calB})$ are $C$. For any total order on a
+basis of $V$, its shuffle algebra is polynomial on the Lyndon words. Under
+\cref{thm:wordind}, the corresponding iterated integrals are algebraically
+independent over $K$.
+\end{corollary}
+\begin{proof}
+If $D_{\calB}F=0$, its longest word coefficients are constants. The
+coefficients one level lower, followed by \eqref{eq:Vcondition}, make every
+positive-length top coefficient zero. Repeating leaves $F\in C$.
+The polynomial presentation of a characteristic-zero shuffle algebra is
+Radford's theorem \cite{Radford1979}; its application to iterated-integral
+algebras is also recalled in \cite[Section~6]{Brown2009}. Any finite
+polynomial relation here involves a finite subalphabet, so the usual
+finite-alphabet theorem suffices even when $V$ is infinite-dimensional.
+\end{proof}
+
+\section{Functional completeness and absolute normal forms}\label{sec:completeness}
+
+Fix irrational $\qh>0$ and finite $\Delta$. Let
+$K=K_{\qh,\Delta}$ and $V=\calW_{\qh,\Delta}$. By
+\cref{thm:mainletters}, $V\cap DK=0$ and $V\cong\calV_{\qh,\Delta}$.
+Because $K\subset\Mer(\C)$ contains $\C$, its differential constants are
+exactly $\C$.
+
+Choose a complex basis of $V$, for example the explicit one obtained from
+\cref{prop:basis} in each offset coset. On a half-plane
+\[
+ \Re x<-1-\max_{\delta\in\Delta}\Re\delta,
+\]
+all letters are holomorphic. Any finite family decays exponentially along
+leftward horizontal rays by \cref{lem:decay}. Thus all finite words
+\eqref{eq:Chen-intro} converge locally uniformly and are holomorphic there.
+One may verify holomorphy and path independence by first starting at $-R$
+and then sending $R\to\infty$; vertical segments at $\Re x=-R$ have vanishing
+contribution. Differentiating at the endpoint gives
+\eqref{eq:wordderivative} with the ascending convention. The ordinary
+partition of the product of two simplices gives
+\begin{equation}\label{eq:shuffleidentity}
+ I[u](x)I[v](x)=\sum_{w\in u\shuffle v}I[w](x),
+\end{equation}
+including multiplicities.
+
+\begin{proof}[Proof of \cref{thm:mainshuffle}]
+\Cref{thm:wordind} gives an injective differential algebra map
+\[
+ K\otimes_\C\Sh(V)\longrightarrow K[I_w].
+\]
+It is surjective by construction. By \cref{prop:weight-reduction},
+$K[I_w]$ equals the algebra generated by all positive-integral-weight quantum
+polylogarithms on the specified common-translation lines. Substituting
+$V\cong\calV_{\qh,\Delta}$ proves \eqref{eq:mainshuffle}.
+The statement about Lyndon words follows from \cref{cor:lyndon}.
+\end{proof}
+
+\subsection{The meaning of complete relations}
+
+The proof supplies a finite reduction procedure for any finite proposed
+relation. Transform each positive-weight generator by
+\eqref{eq:laplace-simplex}; expand its polynomial gaps and use
+\eqref{eq:mult} to remove polynomial multiples of letters. Combine offsets
+in the same lattice coset. Reduce each letter by the partial-fraction basis
+of \cref{prop:basis}, then reduce products by shuffle. The result is a
+finite expression
+\begin{equation}\label{eq:normalform}
+ \sum_w g_w(x)I[w](x),\qquad g_w\in K,
+\end{equation}
+where the words are in the chosen basis of $\calV_{\qh,\Delta}$.
+The original expression vanishes if and only if every $g_w$ is zero in $K$.
+By \cref{prop:tower-generate,thm:maincoeff}, each coefficient reduces further
+to a rational expression in $x,U,V,D^jJ_{b,\rho}$. Clearing denominators
+reduces its vanishing to a polynomial identity in algebraically independent
+variables. This last step, absent from a merely relative presentation, is now
+justified by \cref{thm:maincoeff}.
+
+The reductions consist of constant-linearity, elementary axis evaluation,
+the two modular letter relations, Fourier integration by parts, ordinary
+differentiation and rational arithmetic, the Laplace--Chen conversion, and
+shuffle. They give a complete finite symbolic reduction for every finite
+expression in the stated generators. This is an algebraic statement over
+$\C$: the offsets, $\qh$, the representative choices, and their complex
+constants are treated as exact data. It is not a numerical decision algorithm
+for equality of arbitrary complex inputs or for membership in
+$\Lambda_\qh$.
+
+\begin{corollary}[Larger single-valued coefficient fields]\label{cor:largerfield}
+The word-independence assertion remains valid over any differential field
+$K'$ with
+$K_{\qh,\Delta}\subseteq K'\subseteq\Mer(\C)$.
+\end{corollary}
+\begin{proof}
+\Cref{thm:mainletters} excludes primitives in all of $\Mer(\C)$, and the
+constant field of $K'$ is still $\C$. Apply \cref{thm:wordind}.
+\end{proof}
+
+\subsection{Combining coefficient and shuffle independence}
+\label{sec:absolute-completeness}
+
+\begin{proof}[Proof of \cref{cor:mainabsolute}]
+The coefficient evaluation in \cref{thm:maincoeff} is an isomorphism onto
+$K_{\qh,\Delta}$. By \cref{thm:mainshuffle,cor:lyndon}, adjoining the Lyndon integrals is a
+polynomial extension over that field. Composing these two isomorphisms gives
+\eqref{eq:mainabsolute}. In particular, a polynomial relation among the
+combined generators can be regarded as a polynomial in the Lyndon variables
+with coefficients in $K_{\qh,\Delta}$. Their independence makes every such
+coefficient zero; coefficient-field independence then makes every original
+coefficient polynomial zero. This proves joint independence.
+\end{proof}
+
+The differential structure in this explicit presentation is also determined:
+\[
+ Dx=1,\qquad DU=U,\qquad DV=V/\qh,\qquad
+ D(D^jJ_{b,\rho})=D^{j+1}J_{b,\rho},
+\]
+and differentiation of words is \eqref{eq:wordderivative}. The letter
+coefficient on its right has an explicit tower expression by
+\cref{prop:tower-generate}; shuffle reduction then expresses the result in
+Lyndon generators. Hence derivatives of positive-weight generators introduce
+no unspecified field of coefficients either.
+
+\begin{corollary}[Positive weights without adjoining the coefficient field]
+\label{cor:positive-absolute}
+Let $A_{\qh,\Delta}^{>0}$ be the $\C(x)$-algebra generated by the same
+positive-weight quantum polylogarithms, without adjoining $K_{\qh,\Delta}$.
+Then
+\[
+ A_{\qh,\Delta}^{>0}\cong
+ \C(x)\otimes_\C\Sh(\calV_{\qh,\Delta}).
+\]
+\end{corollary}
+\begin{proof}
+Restrict the injective map in \cref{thm:mainshuffle} to coefficients in
+$\C(x)$. Its image is the stated algebra by
+\cref{prop:weight-reduction}. In particular surjectivity uses only polynomial
+coefficients in $x$, not arbitrary elements of $K_{\qh,\Delta}$.
+\end{proof}
+
+\begin{remark}
+\Cref{cor:positive-absolute} already follows from the relative shuffle theorem.
+The stronger content of \cref{cor:mainabsolute} is that nonlinear identities
+inside the adjoined weight-zero differential field have now been classified,
+not that the positive-weight coefficient field was simply made smaller.
+\end{remark}
+
+\subsection{Small examples and normalization checks}
+
+\begin{example}[The classical one-frequency sector]
+The first letters are
+\begin{equation}\label{eq:classicalexamples}
+ \begin{split}
+ L_{1,0}(x)&=-\frac{e^x}{1+e^x},\\
+ L_{2,0}(x)&=\frac{x}{2\pi\ii}\frac{e^x}{1-e^x},\\
+ L_{3,0}(x)&=\frac{x^2+\pi^2}{2(2\pi\ii)^2}
+               \frac{-e^x}{1+e^x}.
+ \end{split}
+\end{equation}
+They follow from \eqref{eq:axesbase} and \eqref{eq:axisrecursion} and agree
+with \cite[Lemma~5.4]{Goncharov2026}. In particular,
+\[
+ I[L_{1,0}](x)=-\log(1+e^x),\qquad
+ I[L_{1,0}|L_{1,0}](x)=\frac12\log^2(1+e^x),
+\]
+with the branches fixed at $-\infty$. The factor $1/2$ is the shuffle
+multiplicity, not an extra relation in the letter space.
+\end{example}
+
+\begin{example}[Eliminating one additional weight]
+For $\omega=x+\delta$, \cref{thm:laplace} and \eqref{eq:mult} give
+\begin{equation}\label{eq:weighttwo}
+ \begin{split}
+ \calF_{a,b,2}^{\qh}(\omega)
+ ={}&\omega\calF_{a,b,1}^{\qh}(\omega)\\
+ &-\ii\pi a\left(
+ \calF_{a+1,b,1}^{\qh}(\omega+\ii\pi)
+ +\calF_{a+1,b,1}^{\qh}(\omega-\ii\pi)\right)\\
+ &-\ii\pi\qh b\left(
+ \calF_{a,b+1,1}^{\qh}(\omega+\ii\pi\qh)
+ +\calF_{a,b+1,1}^{\qh}(\omega-\ii\pi\qh)\right).
+ \end{split}
+\end{equation}
+The constants are fixed by decay at $-\infty$. This identity illustrates
+why the depth of a pure-word presentation need not equal Goncharov's
+weight: the kernel orders $a,b$ can increase when a polynomial gap is
+removed.
+\end{example}
+
+\begin{example}[The two-frequency letter]
+For irrational $\qh$, $L_{1,1}(z)\dd z$ has residue $-1$ at every
+$z=\ii\pi(1+2m+\qh(1+2n))$ and residue $+1$ at the corresponding negative
+point. Its reflection identity is
+\[
+ L_{1,1}(z)-L_{1,1}(-z)=\frac{\ii z}{2\pi\qh}.
+\]
+The nonzero residues exclude a single-valued meromorphic primitive, even if
+one enlarges the coefficient field far beyond $K_{\qh,\Delta}$.
+\end{example}
+
+\section{Scope, functoriality, and remaining problems}\label{sec:limits}
+
+\subsection{The letter quotient is not the whole differential cohomology}
+
+The injection
+\[
+ \calV_{\qh,\Delta}\hookrightarrow K_{\qh,\Delta}\dd x/dK_{\qh,\Delta}
+\]
+is generally not surjective. Choose $z_0$ outside the finite union
+$\bigcup_{\delta\in\Delta}(-\delta+\Lambda_{\qh})$.
+Then $\dd x/(x-z_0)$ belongs to $K_{\qh,\Delta}\dd x$ and has a nonzero
+residue at $z_0$, while every quantum letter is regular there. It cannot be
+cohomologous to any finite quantum-letter combination. Accordingly
+$\calB(K,V)$ here is the shuffle extension generated by a selected
+cohomologically independent alphabet, not a universal primitive closure of
+$K$. We make no assertion that its first de~Rham cohomology vanishes.
+
+\subsection{Functional variables and continuation}
+
+Both completeness statements fix all offsets and vary one common translation
+$x$. They apply to every such fixed offset configuration, after lattice
+cosets are identified. It does not supply a universal algebraic presentation
+with the offsets themselves as varying coefficient parameters. Similarly,
+meromorphic continuation of the identities preserves equality of continued
+germs, but need not preserve independence after evaluating $x$ at a number.
+A numerical or arithmetic specialization theorem would require new input.
+
+The nonlinear theorem concerns the differential field generated by the
+\emph{depth-one} weight-zero letters; the iterated-integral theorem concerns
+positive integral weights at arbitrary depth. These statements do not claim
+an independent classification for arbitrary mixed positive, zero, and
+negative weight indices in the original multiple-momentum definition.
+
+The Laplace--Chen identity holds for every positive real $\qh$. The explicit
+residue quotient and both independence arguments use irrationality. When
+$\qh=r/s\in\Q$, pole labels collide; the injectivity of
+$(k,\ell)\mapsto k+\qh\ell$ fails. The rational-parameter theory should not
+be inferred by substituting into the irrational-parameter independence
+statement. For example, at $\qh=1$ the kernels themselves give
+$L_{1,1}=L_{2,0}$, whereas
+$d_X^{-1}d_Y^{-1}-d_X^{-2}$ is nonzero in $\calS/\calR$.
+Thus neither the irrational letter presentation nor the differential tower
+independence can remain unchanged at rational parameter. Goncharov treats reduction to multiple polylogarithms at rational
+parameter in \cite[Theorems~3.2--3.3]{Goncharov2026}.
+
+\subsection{Functoriality requires actual differential data}
+
+For a differential-field isomorphism $\phi:K\to K'$ carrying a specified
+letter space $V$ onto $V'$ and commuting with derivations, there is a
+letterwise differential-algebra isomorphism
+\[
+ \calB(K,V)\longrightarrow\calB(K',V'),\qquad
+ g[f_1|\cdots|f_n]\longmapsto
+ \phi(g)[\phi(f_1)|\cdots|\phi(f_n)].
+\]
+This statement concerns the \emph{actual representative forms}. If only
+cohomology classes are transported, representative changes by exact forms
+can produce lower-length integration-by-parts and endpoint terms. The
+associated graded action alone does not determine the normalized action on
+iterated integrals.
+
+Moreover a quantum-cluster transformation acts on a noncommutative quantum
+torus, not automatically on the commutative differential field
+$K_{\qh,\Delta}$. The operator theorem below proves a faithful presentation
+of a specified operator algebra. It does not assert that conjugation by the
+pentagon intertwiner carries scalar multiplication by every Fourier letter
+to scalar multiplication by another such letter. Consequently no universal
+cross-chart scalar completeness theorem is deduced here from the operator
+presentation.
+
+\subsection{Arithmetic motivation}
+
+Radchenko--Wheeler construct finite quantum dilogarithms from special values
+of a modular extension of the quantum dilogarithm and prove algebraicity
+\cite{RadchenkoWheeler2026}. Their second version gives additional algebraicity
+arguments and explicitly distinguishes the small-order normalization exceptions.
+Appleby--Flammia--Kopp extend the rank-one twisted convolution identity to all
+admissible ranks and give a dictionary with the Shintani--Faddeev modular
+cocycle \cite{ApplebyFlammiaKopp2026}. These finite identities and their
+arithmetic applications are background here, not conclusions of this paper.
+
+The shared analytic object motivates asking how a functional relation theory
+interacts with these special values. A literal description as fibers would
+require a defined family or specialization functor and a proof of its kernel.
+Neither the scalar theorem above nor the operator theorem below supplies
+that arithmetic comparison. Our companion note \cite{LongFinite2026}
+studies the raw finite equations, with explicit low-order certificates and
+effective degree bounds; its general finite-\'{e}tale criterion has a separate
+nonreduced-base realization hypothesis. None of those assertions is an input
+to the present functional or operator proofs.
+
+\appendix
+\section{Faithfulness of the pentagon crossed product}\label{app:operator}
+
+This appendix proves the operator statement independently of the scalar
+completeness theorem. Its analytic inputs are Goncharov's invariant Schwartz
+space and covariance and pentagon theorems \cite[Theorems~1.1, 2.3,
+2.6]{Goncharov2007}. No inverse difference operator will be applied to a
+vector.
+
+\subsection{The Ore-denominator lemma}
+
+\begin{theorem}[Independence of intertwiner powers]\label{thm:oreind}
+Let $A$ be a left Ore domain over $\C$, let $D=\Frac(A)$ be its fraction
+division ring, and let $\sigma\in\Aut(A)$ extend to $D$. Suppose
+$\sigma^j$ is outer on $D$ for $1\leq j<m$.
+Let $\pi:A\hookrightarrow\End_\C(V)$ be faithful, and suppose
+$U\in\operatorname{GL}_\C(V)$ satisfies
+\begin{equation}\label{eq:covgeneral}
+ U\pi(a)=\pi(\sigma(a))U\qquad(a\in A).
+\end{equation}
+No action of $D$ on $V$ is required. Then
+\begin{equation}\label{eq:oreind}
+ \sum_{j=0}^{m-1}\pi(a_j)U^j=0\quad\Longrightarrow\quad a_j=0\text{ for all }j.
+\end{equation}
+\end{theorem}
+\begin{proof}
+Choose a nontrivial relation $R=\sum_j\pi(a_j)U^j=0$ with the fewest nonzero
+coefficients. Right multiplication by the inverse of the smallest occurring
+power of $U$ arranges $a_0\ne0$, with exponents still between $0$ and $m-1$.
+There are at least two nonzero coefficients, by faithfulness and invertibility
+of $U$.
+
+For any $a\in A$, choose $s\in A\setminus\{0\}$ and $t\in A$ such that
+\[
+ s a_0aa_0^{-1}=t\quad\hbox{in }D,
+ \qquad\hbox{hence }s a_0a=t a_0.
+\]
+This is permitted by the left-fraction description of $D$. The relation
+$\pi(s)R\pi(a)-\pi(t)R=0$ has coefficient zero at $U^0$ and reads
+\[
+ \sum_j\pi\bigl(s a_j\sigma^j(a)-t a_j\bigr)U^j=0.
+\]
+If any of its coefficients is nonzero \emph{in $A$}, it contradicts minimal
+support. Therefore $s a_j\sigma^j(a)=t a_j$ in $A$ for every $j$.
+Only now, in the abstract division ring, cancel $s$ and write
+$d_j=a_0^{-1}a_j$. The result is
+\[
+ d_j\sigma^j(a)=a d_j\qquad(a\in A).
+\]
+For an active $j>0$, $d_j\ne0$, and this makes
+$\sigma^j(a)=d_j^{-1}ad_j$ on $A$, hence on its fraction division ring.
+This contradicts outerness. No active $j>0$ remains, contrary to the choice
+of a relation with at least two terms.
+\end{proof}
+
+\begin{remark}
+The argument never cancels the operator $\pi(s)$, which could have a kernel.
+It first obtains an equality of coefficients in $A$, and only then uses
+inverses in $D$. This distinction is the reason analytic Ore localization is
+unnecessary.
+\end{remark}
+
+\subsection{The modular-double coefficient algebra}
+
+Fix real irrational $\qh>0$ and set $q=e^{\pi\ii\qh}$,
+$q^\vee=e^{\pi\ii/\qh}$. All coefficient algebras in this appendix are
+specialized over $\C$ at these values. Let $T$ be the tensor product of the
+two quantum tori with generators
+$X^{\pm1},Y^{\pm1},(X^\vee)^{\pm1},(Y^\vee)^{\pm1}$ and relations
+\begin{equation}\label{eq:qtori}
+ XY=q^2YX,\qquad X^\vee Y^\vee=(q^\vee)^2Y^\vee X^\vee,
+\end{equation}
+with the two pairs commuting. Ordered Laurent monomials are a basis.
+
+Let $\calL$ be the specialized coefficient algebra denoted $L$ in
+\cite[Section~2.2]{Goncharov2007}. We use two explicit properties established
+there: $\calL$ is preserved by the order-five automorphism $\gamma$ and
+\begin{equation}\label{eq:P-in-L}
+ P=\C\langle X^{-1},Y,(X^\vee)^{-1},Y^\vee\rangle
+ \subseteq\calL\subseteq T.
+\end{equation}
+The first canonical-basis cone consists, up to nonzero powers of $q$, of
+$X^aY^b$ with $a\leq0$, $b\geq0$, and similarly in the dual factor;
+this proves the first inclusion. On the fraction division ring, the first
+factor of $\gamma$ is
+\begin{equation}\label{eq:gamma}
+ \gamma(X)=Y^{-1},\qquad \gamma(Y)=(1+qY)X,
+\end{equation}
+and the dual factor has the analogous formula with $q^\vee$.
+Goncharov proves $\gamma^5=1$.
+
+\begin{lemma}\label{lem:OreP}
+$P$, $\calL$, and $T$ are left and right Ore domains with the same fraction
+division ring $D$.
+\end{lemma}
+\begin{proof}
+Products of ordered monomials differ from the corresponding ordered
+monomial only by a nonzero scalar; leading-term comparison shows that all
+three algebras are domains. Let $P_{\leq n}$ be the span of monomials in its
+four generators of total degree at most $n$. Then
+$\dim P_{\leq n}=\binom{n+4}{4}$.
+For nonzero $a,b\in P$ of degrees at most $d$, the subspaces
+$P_{\leq n}a$ and $P_{\leq n}b$ both have this dimension and lie in
+$P_{\leq n+d}$. For large $n$,
+\[
+ 2\binom{n+4}{4}>\binom{n+d+4}{4}.
+\]
+Their intersection is nonzero, giving $sa=tb$ with nonzero $s,t\in P$.
+The right-sided argument is identical, so $P$ is Ore.
+
+Its fraction division ring contains the inverses of the four generators,
+hence contains $T$. For $a,b\in\calL$, $a,b\ne0$, write
+$ab^{-1}=s^{-1}t$ with $s,t\in P\setminus\{0\}$. Then $sa=tb$ is a common
+left multiple in $\calL$; right fractions give the right Ore condition.
+The same reasoning applies to $T$, and all fraction division rings equal
+$\Frac(P)$.
+\end{proof}
+
+\begin{lemma}[Outerness]\label{lem:outer}
+Every nonidentity power $\gamma^j$, $1\leq j\leq4$, is outer on $D$.
+\end{lemma}
+\begin{proof}
+For a nonzero Laurent polynomial in $T$, let $\deg_X$ be its largest
+$X$-exponent. Regarding $T$ as a skew Laurent-polynomial ring in $X$ over
+a domain shows $\deg_X(AB)=\deg_X(A)+\deg_X(B)$. It extends to
+$D^\times$ by
+\[
+ \deg_X(A^{-1}B)=\deg_X(B)-\deg_X(A).
+\]
+To check well-definedness take common left Ore denominators; their degrees
+cancel by additivity. Every inner automorphism preserves this degree.
+But $\deg_X(X)=1$ and $\deg_X(\gamma(X))=\deg_X(Y^{-1})=0$, so $\gamma$
+is outer. If $\gamma^j$ were inner for $1\leq j\leq4$, choose $r>0$ with
+$jr\equiv1\pmod5$; then $\gamma=(\gamma^j)^r$ would be inner. This is
+impossible.
+\end{proof}
+
+\subsection{The analytic representation}
+
+On Gaussian-polynomial test functions, the torus generators act by
+\begin{equation}\label{eq:operators}
+ \begin{aligned}
+ \widehat X f(x)&=f(x+2\pi\ii\qh),&
+ \widehat Y f(x)&=e^x f(x),\\
+ \widehat X^\vee f(x)&=f(x+2\pi\ii),&
+ \widehat Y^\vee f(x)&=e^{x/\qh}f(x).
+ \end{aligned}
+\end{equation}
+Goncharov constructs a common invariant space $S_{\calL}$ containing these
+test functions, and an invertible quantum-dilogarithm intertwiner $K$ on it,
+such that
+\begin{equation}\label{eq:analyticcov}
+ K^{-1}\widehat A K=\widehat{\gamma(A)}\quad(A\in\calL),
+ \qquad K^5=\kappa I\quad(\kappa\in\C^\times).
+\end{equation}
+Here a fixed nonzero scalar normalization of his intertwiner is allowed;
+$\kappa$ is determined by it. We import the common-domain and covariance
+assertions from \cite[Theorems~1.1, 2.3, 2.6]{Goncharov2007}.
+
+\begin{lemma}[Faithful coefficients]\label{lem:coefffaithful}
+The representation of $\calL$ on $S_{\calL}$ is faithful.
+\end{lemma}
+\begin{proof}
+Apply a Laurent monomial
+$Y^b(Y^\vee)^dX^a(X^\vee)^c$ to $f_0(x)=e^{-x^2/2}$.
+Its value is
+\begin{equation}\label{eq:gaussian}
+ e^{2\pi^2(a\qh+c)^2}e^{-x^2/2}
+ e^{(b+d/\qh-2\pi\ii(a\qh+c))x}.
+\end{equation}
+For irrational real $\qh$, the displayed exponents are distinct for distinct
+integer quadruples $(a,b,c,d)$: compare imaginary parts first, then real
+parts. Finite families of exponentials with distinct exponents are linearly
+independent, as follows for example from a Vandermonde determinant of their
+derivatives at zero. Thus the torus action on the Gaussian test space is
+faithful, and so is the restriction to $\calL$ on $S_{\calL}$.
+\end{proof}
+
+\begin{theorem}[Pentagon crossed-product presentation]\label{thm:crossed}
+For irrational real $\qh>0$, the finite algebraic operator relations in the
+algebra generated by $\widehat{\calL}$ and $K,K^{-1}$ are exactly the
+coefficient relations, covariance, and $K^5=\kappa I$. More precisely,
+\begin{equation}\label{eq:crossed}
+ \calL[u;\gamma^{-1}]/(u^5-\kappa)
+ \xrightarrow{\sim}
+ \operatorname{Alg}_{\C}(\widehat{\calL},K,K^{-1}),
+ \qquad u\longmapsto K.
+\end{equation}
+In particular $\sum_{j=0}^4\widehat A_jK^j=0$ with $A_j\in\calL$ implies
+$A_0=\cdots=A_4=0$.
+\end{theorem}
+\begin{proof}
+Covariance in \eqref{eq:analyticcov} is
+$K\widehat A=\widehat{\gamma^{-1}(A)}K$.
+Apply \cref{thm:oreind} with $A=\calL$, $U=K$, $m=5$, and
+$\sigma=\gamma^{-1}$, using \cref{lem:OreP,lem:outer,lem:coefffaithful}.
+This proves independence of the five powers.
+Since $\sigma^5=1$ and $\kappa$ is a nonzero scalar, $u^5-\kappa$ is central
+in the skew-polynomial ring. Division by this monic polynomial gives the
+unique left-coefficient normal form $\sum_{j=0}^4 A_ju^j$.
+The independence just proved makes its analytic realization injective;
+surjectivity follows from the definition of the generated algebra and
+$u^{-1}=\kappa^{-1}u^4$.
+\end{proof}
+
+\begin{remark}[Operator scope]
+\Cref{thm:crossed} concerns finite sums and products in the specified generated
+algebra. It does not classify identities in an algebra enlarged by the bare
+Fourier transform, arbitrary meromorphic multiplication operators, analytic
+closures, or parameter-changing intertwiners. In particular it does not
+identify the operator algebra with the commutative shuffle algebra of
+\cref{thm:mainshuffle}.
+\end{remark}
+
+\section*{Research and computational disclosure}
+The manuscript was developed with AI-assisted literature retrieval, proof
+exploration, drafting, and internal checking. The author is responsible for
+its mathematical claims and references. Symbolic low-order normalization
+checks and numerical contour comparisons accompany the draft as supplementary
+code; they are not used as proofs. This version is a research draft and has
+not undergone independent external refereeing.
+
+\begin{thebibliography}{99}
+
+\bibitem{Brown2009}
+F.~C.~S.~Brown,
+\emph{Multiple zeta values and periods of moduli spaces
+$\overline{\mathfrak M}_{0,n}$},
+Ann. Sci. \'Ec. Norm. Sup\'er. (4) \textbf{42} (2009), no.~3, 371--489.
+\href{https://www.numdam.org/item/ASENS_2009_4_42_3_371_0/}{Journal text}.
+
+\bibitem{Chen1977}
+K.-T.~Chen,
+\emph{Iterated path integrals},
+Bull. Amer. Math. Soc. \textbf{83} (1977), no.~5, 831--879.
+\href{https://doi.org/10.1090/S0002-9904-1977-14320-6}{doi:10.1090/S0002-9904-1977-14320-6}.
+
+\bibitem{Goncharov2007}
+A.~B.~Goncharov,
+\emph{Pentagon relation for the quantum dilogarithm and quantized
+$M^{\mathrm{cyc}}_{0,5}$},
+in \emph{Geometry and Dynamics of Groups and Spaces},
+Progress in Mathematics \textbf{265}, Birkh\"auser, 2008, 415--428.
+\href{https://arxiv.org/abs/0706.4054v2}{arXiv:0706.4054v2}.
+Theorem and equation numbers in the text refer to this arXiv version.
+
+\bibitem{Goncharov2026}
+A.~B.~Goncharov,
+\emph{Quantum polylogarithms},
+preprint, 2026.
+\href{https://arxiv.org/abs/2601.00472v1}{arXiv:2601.00472v1}.
+
+\bibitem{HardouinSinger2008}
+C.~Hardouin and M.~F.~Singer,
+\emph{Differential Galois theory of linear difference equations},
+Math. Ann. \textbf{342} (2008), no.~2, 333--377.
+\href{https://doi.org/10.1007/s00208-008-0238-z}{doi:10.1007/s00208-008-0238-z}.
+Erratum, Math. Ann. \textbf{350} (2011), 243--244,
+\href{https://doi.org/10.1007/s00208-010-0551-1}{doi:10.1007/s00208-010-0551-1}.
+
+\bibitem{Schneider2010}
+C.~Schneider,
+\emph{Parameterized telescoping proves algebraic independence of sums},
+Ann. Comb. \textbf{14} (2010), no.~4, 533--552.
+\href{https://doi.org/10.1007/s00026-011-0076-7}{doi:10.1007/s00026-011-0076-7}.
+
+\bibitem{RadchenkoWheeler2026}
+D.~Radchenko and C.~Wheeler,
+\emph{Real quadratic fields and finite quantum dilogarithms I},
+preprint, 2026, \href{https://arxiv.org/abs/2609.21892v2}{arXiv:2609.21892v2},
+September 29, 2026. Version 1 appeared September 18, 2026.
+
+\bibitem{ApplebyFlammiaKopp2026}
+M.~Appleby, S.~T.~Flammia, and G.~S.~Kopp,
+\emph{The twisted convolution identity and ghost $r$-SICs from finite quantum dilogarithms},
+preprint, 2026, \href{https://arxiv.org/abs/2609.39192v1}{arXiv:2609.39192v1},
+September 30, 2026.
+
+\bibitem{LongFinite2026}
+C.~D.~Long,
+\emph{Finite Quantum Dilogarithms: Normalization Exceptions, Effective Degree
+Bounds, and an Infinitesimal Rigidity Criterion}, research draft, October 1, 2026.
+Companion manuscript in
+\href{https://github.com/long-mathematics/quantum-polylogarithms-finite-dilogarithms}{the project repository}.
+
+\bibitem{Radford1979}
+D.~E.~Radford,
+\emph{A natural ring basis for the shuffle algebra and an application to group
+schemes},
+J. Algebra \textbf{58} (1979), no.~2, 432--454.
+\href{https://doi.org/10.1016/0021-8693(79)90171-6}{doi:10.1016/0021-8693(79)90171-6}.
+
+\end{thebibliography}
+\end{document}

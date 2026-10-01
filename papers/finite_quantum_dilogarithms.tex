@@ -1,0 +1,692 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs,microtype,enumitem}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={Finite quantum dilogarithms: rigidity and effective bounds},pdfauthor={Christopher D. Long}}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Finite quantum dilogarithms}
+\fancyhead[R]{\small Research working note}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\emergencystretch}{2em}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\C}{\mathbb C}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\F}{\mathbb F}
+\newcommand{\A}{\mathbb A}
+\newcommand{\Spec}{\operatorname{Spec}}
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\disc}{\operatorname{disc}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\qd}{\mathrm{qd}}
+\title{Finite Quantum Dilogarithms:\\Normalization Exceptions, Effective Degree Bounds,\\and an Infinitesimal Rigidity Criterion}
+\author{Christopher D. Long}
+\date{October 1, 2026\\[2pt]\small Research draft, initial GitHub release}
+\begin{document}
+\maketitle
+\begin{center}\small\texttt{galizur@gmail.com}\end{center}
+\begin{abstract}
+We study the raw finite quantum-dilogarithm equations introduced by
+Radchenko--Wheeler. We classify their small-order normalization exceptions,
+compute the complete saturated solution schemes for the cyclic three-point
+metric and the anisotropic four-point metric, and give exact certificates
+for their reducedness. Using the known finiteness theorem, a Fourier--Weil
+eigenspace reduction gives explicit algebraic-degree bounds, with a sharper
+bound in prime order. Separately, we formulate a nonreduced-base realization
+hypothesis for the categorical construction and prove that it implies finite
+\'{e}taleness of the full raw solution scheme. The required flatness and
+coordinate-reconstruction arguments are distinguished from that hypothesis.
+An elementary calculation also recovers a known obstruction for higher-rank
+elementary abelian two-groups.
+\end{abstract}
+
+\paragraph{Status and provenance.}
+This is a research draft. The exact small-order certificates and degree bounds
+do not depend on the general finite-\'{e}tale criterion. That criterion is
+conditional on Hypothesis~\ref{hyp:realization}; it is not asserted here as
+an unconditional reducedness theorem. The original working note was dated
+September 21, 2026. This release compares it with Radchenko--Wheeler's
+September 29 version \cite{RW2}, which restricts Theorem~5 to $N>4$ and
+explicitly records small-order exceptions in Remark~3. The finite pentagon,
+algebraicity, and finiteness results are due to Radchenko--Wheeler, not to
+this note. The recent all-rank twisted-convolution theorem and modular-cocycle
+dictionary of Appleby--Flammia--Kopp \cite{AFK} are likewise cited background.
+No priority claim is made for observing the small-order exceptions.
+
+The companion functional paper \cite{LongQuantum} treats a different question:
+relations between quantum polylogarithms at fixed irrational parameter.
+Neither paper proves a numerical specialization theorem, Stark reciprocity,
+or the existence of the required unitary Galois conjugates.
+
+\section{The raw solution scheme}
+Let $G$ be a finite abelian group of order $N>2$, with an even quadratic function
+$q:G\to\C^\times$, and put
+\[
+ \chi(x,y)=\frac{q(x+y)}{q(x)q(y)}.
+\]
+Assume $\chi$ is a nondegenerate bicharacter. Write $s=\sqrt N>0$ and
+\[
+ \widehat f(u)=\frac1s\sum_{v\in G}f(v)\chi(-u,v).
+\]
+All values of $q$ are roots of unity. Choose a number field
+$K\subset\C$ containing these values and $s$.
+
+The equations used throughout are
+\begin{equation}\label{eq:pent}
+ \chi(x,y)E(x)E(y)
+ =C+\frac1s\sum_{t\in G}q(t)E(x-t)E(t)E(y-t),\qquad C\ne0.
+\end{equation}
+This is the raw equation of \cite[Definition 4, Eq.~(29)]{RW}, with its
+bicharacter retained. Our equation, rather than any version-dependent equation
+number, fixes the scheme studied below. For $N\le4$ we do not impose the
+extra zero-coordinate normalization used to extend the definition in
+\cite[Remark~3]{RW2}; thus our raw scheme includes the exceptional points.
+Set
+\begin{align*}
+ P_{xy}&=s\bigl(\chi(x,y)X_xX_y-C\bigr)
+              -\sum_tq(t)X_{x-t}X_tX_{y-t},\\
+ X_{G,q}&=\Spec K[X_g:g\in G,C,C^{-1}]/(P_{xy}:x,y\in G).
+\end{align*}
+Equivalently one can introduce $T$ and add $TC-1$.
+
+The known finiteness of complex solutions \cite[Section~5]{RW2} does not
+imply reducedness of this defining ideal. We keep the actual localized ideal,
+rather than replacing it by its radical, when discussing tangent spaces and
+finite \'{e}taleness.
+
+\section{Small-order normalization exceptions}
+The normalization formulas in \cite[Theorem~5]{RW2}, valid for $N>4$, are
+\begin{align}
+ e^2&=se+1,\qquad e=E(0),\label{eq:norm0}\\
+ E(u)E(-u)&=q(u)^{-1}\quad(u\ne0),\label{eq:reflect}\\
+ \widehat E(u)&=\lambda q(u)E(u),\qquad
+ C=-\lambda e,\qquad
+ \lambda^3=\Gamma:=\frac1s\sum_xq(x)^{-1}.\label{eq:fourier}
+\end{align}
+At the two smaller orders under consideration, the raw equation has the
+exceptions described below; compare \cite[Remark~3]{RW2}.
+
+\subsection{An exact four-point counterexample}
+Let $G=(\Z/2\Z)^2$ and
+\[
+ q(0)=1,\qquad q(x)=-1\ (x\ne0),\qquad E=q,\qquad C=-1.
+\]
+In the order $0,(1,0),(0,1),(1,1)$ the bicharacter matrix is
+\[
+ \begin{pmatrix}
+ 1&1&1&1\\1&1&-1&-1\\1&-1&1&-1\\1&-1&-1&1
+ \end{pmatrix}.
+\]
+Thus the metric is nondegenerate. Its quadratic function has autocorrelation
+\[
+ \frac12\sum_tq(x+t)q(y+t)=2\delta_{x,y}.
+\]
+Since $q(t)^2=1$, the cubic sum in \eqref{eq:pent} is exactly this
+quantity, while the left side is $q(x+y)=2\delta_{x,y}-1$.
+Consequently all sixteen ordered equations hold, with nonzero $C=-1$.
+But $e=1$ gives $e^2-2e-1=-2$, and for nonzero $u$ the asserted reflection
+identity reads $1=-1$.
+
+The first version's proof used nonconstancy of $q(x)E(x)$ on
+$G\setminus\{0\}$ for $N>2$; here it is identically one.
+The current version avoids this step at these small orders by its $N>4$
+hypothesis and separate normalization convention \cite[Theorem~5 and Remark~3]{RW2}.
+
+This counterexample is algebraic. It is not a counterexample to the paper's
+algebraicity claim for Stark special values. Those values satisfy the
+normalizations separately through Theorem 2 and Proposition 10 of \cite{RW}.
+
+\subsection{The order-three exception}
+Let $G=\Z/3\Z$, $r=(-1+i\sqrt3)/2$, and $q(1)=q(2)=r$. Then
+\begin{equation}\label{eq:exception3}
+ E(0)=\frac{\sqrt3-i}{2},\qquad
+ E(1)=E(2)=-\frac{\sqrt3+i}{2},\qquad C=r^2
+\end{equation}
+satisfies all nine equations \eqref{eq:pent}. Again
+$e^2-\sqrt3e-1=-2$. Complex conjugation gives the other metric.
+These statements follow by direct substitution; the script checks them in an
+exact number field, with no numerical tolerances.
+
+\subsection{Why there are no other normalization exceptions}
+\begin{lemma}\label{lem:normal}
+For a complex solution of \eqref{eq:pent}, all $E(u)$ and $\widehat E(u)$
+are nonzero. If $q(u)E(u)$ is nonconstant on $G\setminus\{0\}$, then
+\eqref{eq:norm0}--\eqref{eq:fourier} hold. This implication also holds over
+the dual numbers in a neighbourhood of such a solution.
+\end{lemma}
+\begin{proof}
+We indicate explicitly the local-algebra issue. The Fourier transform of
+\eqref{eq:pent}, with $p_x(z)=E(x-z)E(z)q(z)$, is
+\begin{equation}\label{eq:31}
+ E(x)\widehat E(w-x)=Cs\delta_0(w)+\widehat E(w)\widehat p_x(w).
+\end{equation}
+The support argument and Fourier inversion in
+\cite[proof of Theorem 5, (31)--(33)]{RW} give nonvanishing, and give
+\[
+ E(u)E(-u)q(u)=se\delta_0(u)-C/\widehat E(0),
+ \qquad \widehat E(u)=\lambda q(u)E(u)\quad(u\ne0).
+\]
+The next convolution identity in that proof gives constants $c,k$ such that
+$qE-c\widehat E=k\mathbf1$. For distinct nonzero $u,v$ with
+$q(u)E(u)\ne q(v)E(v)$, subtraction yields $c\lambda=1$, then $k=0$.
+This extends the Fourier relation to zero. The algebra in the cited proof
+then yields
+\[
+ e^2=(e^2-se)(se+1),
+\]
+whose difference from the left side is $se(e^2-se-1)$.
+Since $se\ne0$, this gives \eqref{eq:norm0}; reflection and $C=-\widehat E(0)$
+follow, and the Fourier--Weil cubic gives $\lambda^3=\Gamma$.
+
+For the local assertion, let $A=\C[\eps]/(\eps^2)$ and reduce to the given
+solution. Every $E(u)$, $\widehat E(u)$ and $C$ is now a unit. The chosen
+nonzero difference $q(u)E(u)-q(v)E(v)$ is also a unit. The Fourier and
+convolution calculations just described are algebraic identities and use only
+these invertible quantities and nonzero scalar constants. Thus the same
+argument works in $A$; it does not infer reducedness from an identity that
+holds only at field-valued points.
+\end{proof}
+
+Suppose now that $q(u)E(u)=B$ for all $u\ne0$. Then $B\ne0$ and
+\[
+ E=Bq^{-1}+(e-B)\delta_0.
+\]
+The Gaussian Fourier identity $\widehat{q^{-1}}=\Gamma q$ shows that, for
+$u\ne0$,
+\[
+ \widehat E(u)=B\Gamma q(u)+(e-B)/s.
+\]
+But the partial Fourier relation obtained before the problematic sentence in
+\cite{RW} says $\widehat E(u)=\lambda B$ on this punctured group.
+Since $B\Gamma\ne0$, the value $q(u)$ must be a constant $r$ for $u\ne0$.
+Orthogonality of any nontrivial row of $\chi$ gives
+\[
+ 0=1+r^{-2}+(N-2)r^{-1},\qquad r+r^{-1}=-(N-2).
+\]
+As $|r|=1$, this forces $N\le4$. For $N=3$ it gives $r^2+r+1=0$.
+For $N=4$ it gives $r=-1$, and the group must be $(\Z/2\Z)^2$:
+a cyclic group of order four would have $q(2g)=q(g)^4=1$, a contradiction.
+The exact calculations in Section~\ref{sec:small} show that the only
+constant-puncture solutions in these metrics are the two types already
+listed. We have proved the following corrected alternative.
+
+\begin{proposition}\label{prop:alternative}
+Every complex solution of \eqref{eq:pent}, with $N>2$, either satisfies
+\eqref{eq:norm0}--\eqref{eq:fourier}, or is the order-three solution
+\eqref{eq:exception3} (or its conjugate), or the displayed four-point
+solution. In particular the normalization in Theorem 5 of \cite{RW} is valid
+without exceptions when $N\ge5$, as in \cite[Theorem~5]{RW2}.
+\end{proposition}
+
+\section{An infinitesimal criterion for finite \'{e}taleness}
+\label{sec:rigidity}
+
+\begin{hypothesis}[Normalized realization over dual numbers]
+\label{hyp:realization}
+Let $A=\C[\varepsilon]/(\varepsilon^2)$ and let $(E_A,C_A)$ be an $A$-valued
+solution of the raw equations reducing to a nonexceptional complex solution.
+After the normalization of Lemma~\ref{lem:normal}, the Leavitt formulas,
+split fusion maps, and duality maps of \cite[Section~5.4 and Appendix~B]{RW2}
+define the same identities over $A$. The scalar reconstruction of
+\cite[Section~5.5]{RW2} is compatible with this base change and with labelled
+monoidal equivalences reducing to the identity.
+\end{hypothesis}
+
+The formulas have algebraic coefficients and unit denominators, which makes
+this a concrete ring-level verification problem. Field-valued identities
+alone do not establish the hypothesis. In particular, the extension to
+fields mentioned in \cite[Remark~5]{RW2} does not include nonreduced rings.
+We isolate this input rather than infer it from a zero-dimensional complex
+solution set. The finite computations below do not verify it for arbitrary
+metric groups.
+
+\begin{theorem}[Conditional finite-\'{e}tale criterion]\label{thm:etale}
+Assume Hypothesis~\ref{hyp:realization} for every nonexceptional complex
+solution. Then $X_{G,q}$ is finite \'{e}tale over $K$ for every metric group
+of order $N>2$.
+\end{theorem}
+The conclusion concerns the actual defining ideal, including infinitesimal
+structure. The proof below supplies the flatness and rigidity arguments
+once the specified realization input is available.
+
+\subsection{The linearized equations}
+At a nonexceptional solution write
+\[
+ E_A(u)=E(u)+\eps h(u),\qquad C_A=C+\eps c_1,
+ \qquad A=\C[\eps]/(\eps^2).
+\]
+Lemma~\ref{lem:normal} applies over $A$. Consequently
+\[
+ (2e-s)h(0)=0,
+ \qquad 3\lambda^2\lambda_1=0.
+\]
+The coefficients are nonzero: $(2e-s)^2=N+4$ and $\lambda\ne0$.
+Hence $h(0)=\lambda_1=c_1=0$. The remaining tangent equations include
+\begin{align}
+ E(-u)h(u)+E(u)h(-u)&=0\quad(u\ne0),\label{eq:tangref}\\
+ \widehat h(u)&=\lambda q(u)h(u),\label{eq:tangfour}
+\end{align}
+and
+\begin{align}\label{eq:tangpent}
+ \chi(x,y)\bigl(h(x)E(y)+E(x)h(y)\bigr)
+ =\frac1s\sum_tq(t)\bigl(&h(x-t)E(t)E(y-t)\notag\\
+ &+E(x-t)h(t)E(y-t)\notag\\
+ &+E(x-t)E(t)h(y-t)\bigr).
+\end{align}
+It is not sufficient merely to observe that there are many equations.
+Under Hypothesis~\ref{hyp:realization}, we show that this system has zero
+kernel by reconstruction from a flat categorical deformation.
+
+\subsection{Extending the construction over the dual numbers}
+Put $d=-s/e$ and fix a square root of $d$. These parameters are constant in
+$A$, since $e$ is constant. Form the Leavitt algebra
+$L_A=A\otimes_\C L_{2N}$.
+By Hypothesis~\ref{hyp:realization}, the formulas of
+\cite[Section~5.4]{RW2} define $A$-linear endomorphisms $\alpha_g$ and
+$\rho_A$ of $L_A$, together with the stated split fusion and duality maps.
+Their coefficients are algebraic expressions in $E_A,q,s,\lambda,d^{1/2}$;
+the denominators are units. The identity verification in the hypothesis is
+used precisely here, before any appeal to deformation rigidity. In particular,
+\[
+ \rho_A^2\simeq\bigoplus_{g\in G}\alpha_g\ \oplus\ \rho_A^{\oplus N},
+ \qquad \alpha_g\rho_A=\rho_A,
+ \qquad \rho_A\alpha_g\simeq\rho_A.
+\]
+
+\paragraph{Flatness of morphism spaces.}
+This is the additional check that cannot be replaced by saying simply that
+``the formulas work over $A$.'' For the basic objects $\alpha_g,\rho_A$, the
+reduced category has scalar endomorphisms and zero morphisms between distinct
+simples, as computed in \cite[Section~5.4]{RW2}. Let $z=z_0+\eps z_1$ be an
+intertwiner in $L_A$. Between distinct basic simples reduction gives $z_0=0$,
+and the remaining intertwining equation says that $z_1$ is an intertwiner
+between the corresponding distinct reduced simples. Thus $z_1=0$.
+For an endomorphism of one basic simple, $z_0$ is a scalar. Subtract that
+scalar identity, which is an exact intertwiner over $A$; the same reasoning
+shows that $z_1$ is a scalar. Therefore
+\[
+ \End_A(\alpha_g)=A,
+ \quad\End_A(\rho_A)=A,
+ \quad\Hom_A(S,T)=0\quad(S\not\simeq T)
+\]
+for these chosen basic simples. The explicit fusion decompositions extend
+this to all tensor words as free finite-rank $A$-modules. Choosing the split
+skeleton and bases of the fusion spaces therefore gives a flat deformation
+of the reduced fusion category, with the same fusion rules.
+
+\paragraph{First-order rigidity.}
+The theorem of Etingof--Nikshych--Ostrik gives
+$H^3(\mathcal C)=0$ for a fusion category in characteristic zero.
+This cohomology classifies first-order deformations of the associativity
+structure \cite[Theorem 2.27, \S7.1]{ENO}. It follows that the deformation just
+constructed is monoidally equivalent, with its reduction fixed, to the
+constant deformation $A\otimes_\C\mathcal C$.
+
+\subsection{Why gauge-triviality forces the actual coordinates to be fixed}
+The preceding paragraph alone does not show $h=0$: gauge-trivial structure
+constants can still move. We use the scalar reconstruction of
+\cite[Section~5.5]{RW2} over $A$, as required in
+Hypothesis~\ref{hyp:realization}.
+There the invariant line determining $T_0\in\Hom(\rho,\rho^2)$ is the
+trivial-character line for the $\alpha_g$ action. Over $A$ it is still free of
+rank one, since the distinct character values have invertible differences.
+The normalization of $U_g$ by its action on the rank-one space
+$\Hom(1,\rho^2)$ works over $A$ as well. Setting $T_g=U_{-g}T_0$ gives a
+basis up to multiplication by a common unit of $A$. Let $T'_g$ be the dual
+basis. The reconstruction identity is
+\begin{equation}\label{eq:recon}
+ \frac{E_A(g)}s\,1_\rho
+ =T'_0(T'_0\otimes1_\rho)(1_\rho\otimes T_g)T_0.
+\end{equation}
+All tensor associativity identifications are understood in this expression.
+The two basis factors and two dual-basis factors cancel the common rescaling.
+Thus the right side is a scalar invariant of the labelled monoidal category,
+not a coordinate depending on a moving basis.
+Under the equivalence to the constant deformation it is therefore
+$E(g)/s$. Relabelling by $\Aut(G)$ cannot create a first-order motion of labels;
+the equivalence is chosen to have fixed reduction. Equation~\eqref{eq:recon}
+gives $E_A(g)=E(g)$, hence $h(g)=0$ for all $g$.
+
+\subsection{Finishing the scheme argument}
+Under Hypothesis~\ref{hyp:realization}, every nonexceptional complex point
+has $T_EX_{G,q}=0$.
+At the order-three exception, the Jacobian of the residuals $P_{xy}$ in
+variables $(E(0),E(1),E(2),C)$ has a nonzero $4\times4$ minor
+\[
+ -\frac{27\sqrt3}{2}-\frac{81i}{2}.
+\]
+At the four-point exception it has a $5\times5$ minor equal to $512$.
+These calculations are certified by the accompanying script; alternatively
+the saturated ideals in Section~\ref{sec:small} establish reducedness there.
+Thus every complex point of $X_{G,q}$ has zero tangent space.
+
+For an affine scheme of finite type over $\C$, zero tangent space at every
+closed point implies dimension zero. In each local ring its maximal ideal
+satisfies $\mathfrak m/\mathfrak m^2=0$, hence is zero by Nakayama's lemma.
+The scheme is therefore a finite reduced complex scheme. It follows by
+base change and descent that $X_{G,q}$ is finite etale over $K$.
+This proves Theorem~\ref{thm:etale}. Notice that this argument uses the
+infinitesimal part of Ocneanu rigidity; separate use of its finiteness-of-
+categories conclusion is unnecessary.
+
+\begin{corollary}
+Under the hypothesis of Theorem~\ref{thm:etale}, the localized ideal defining
+$X_{G,q}$ is radical. For every local Artin
+$\C$-algebra $A$ with residue field $\C$, reduction induces a bijection
+$X_{G,q}(A)\to X_{G,q}(\C)$. In particular, there are no hidden nilpotent
+motions of a fixed solution of any order.
+\end{corollary}
+
+\section{Effective degree bounds from Fourier--Weil eigenspaces}
+The results of this section use the established finiteness theorem
+\cite[Section~5]{RW2}, not Hypothesis~\ref{hyp:realization} or reducedness.
+Fix choices $e,\lambda$ satisfying \eqref{eq:norm0} and
+$\lambda^3=\Gamma$, and write $K'=K(e,\lambda)$.
+Define the Fourier--Weil operator and its eigenspace dimension by
+\[
+ Wf(u)=q(u)^{-1}\widehat f(u),\qquad
+ m_\lambda=\dim_{K'}\ker(W-\lambda).
+\]
+The identity $W^3=\Gamma I$ is proved in
+\cite[proof of Theorem 5]{RW}. In this fixed sector every normalized solution
+lies in
+\[
+ \ker(W-\lambda)\cap\{X_0=e\}.
+\]
+If the sector is nonempty, this is an affine space of dimension
+$m_\lambda-1$; the functional $X\mapsto X_0$ is then nonzero on the eigenspace.
+
+\begin{proposition}\label{prop:degree}
+For a normalized finite quantum dilogarithm in a nonempty $(e,\lambda)$ sector,
+\[
+ [K'(E(g):g\in G):K']\le 3^{m_\lambda-1}.
+\]
+When $G=\Z/p\Z$ with $p$ prime, the sharper bound is
+\[
+ [K'(E(g):g\in G):K']\le 2^{m_\lambda-1}.
+\]
+The same bounds hold for the number of geometric solutions in that sector.
+\end{proposition}
+\begin{proof}
+In the affine eigenspace section the remaining defining equations have degree
+at most three. Its finite solution set has at most $3^{m_\lambda-1}$ points
+by the affine Bezout bound. The field degree is the size of the orbit of the
+entire tuple under the absolute Galois group of $K'$, so it is bounded by that
+number. In prime order, \cite[Section~5.1, prime-order uncertainty argument]{RW2} shows that the larger variety
+cut out just by the linear Fourier equations and quadratic reflection
+identities is finite: at infinity, a vector and its Fourier transform would
+have equal skew support of size at most $(p-1)/2$, contrary to the prime-order
+uncertainty principle. Consequently quadratic, rather than cubic, Bezout
+applies on the same affine space.
+\end{proof}
+
+The dimensions $m_\lambda$ are explicitly computable from a finite matrix.
+They also admit a uniform estimate.
+\begin{lemma}\label{lem:mult}
+Let $G[3]=\{g:3g=0\}$. Then
+\[
+ m_\lambda\le\left\lfloor\frac{N+2\sqrt{|G[3]|}}3\right\rfloor.
+\]
+\end{lemma}
+\begin{proof}
+The evenness of $q$ implies $\chi(x,x)=q(x)^2$ and $q(nx)=q(x)^{n^2}$.
+Therefore
+\[
+ \tr W=\frac1s\sum_xq(x)^{-3}.
+\]
+The radical of $\chi^3$ is $G[3]$. For $z\in G[3]$, $q(z)^9=q(z)^6=1$,
+so $q(z)^3=1$. The usual direct calculation of the squared absolute value of
+a Gaussian sum thus gives
+\[
+ \left|\sum_xq(x)^{-3}\right|^2=N|G[3]|,
+ \qquad |\tr W|=\sqrt{|G[3]|}.
+\]
+For completeness, expand the square using $x=y+z$, sum first over $y$, and
+use character orthogonality; only $z\in G[3]$ survive.
+
+Choose $\lambda_0^3=\Gamma$ and $\omega=e^{2\pi i/3}$. Since $W^3=\Gamma I$
+and $|\Gamma|=1$, the eigenvalues are $\lambda_0\omega^j$ with multiplicities
+$m_j$. If $T=\tr(W)/\lambda_0$, Fourier inversion on three points gives
+\[
+ m_j=\frac{N+2\operatorname{Re}(\omega^{-j}T)}3.
+\]
+The asserted bound follows.
+\end{proof}
+
+\begin{corollary}\label{cor:primebound}
+For $p\ge5$ prime, a fixed metric $q$ on $\Z/p\Z$, and
+$K\supset\Q(q(g),\sqrt p)$,
+\[
+ \#X_{G,q}(\overline K)\le
+ 6\,2^{\lfloor(p-1)/3\rfloor},\qquad
+ [K(E(g):g\in G):K]\le6\,2^{\lfloor(p-1)/3\rfloor}.
+\]
+\end{corollary}
+\begin{proof}
+There are at most two choices for $e$ and three for $\lambda$.
+Here $G[3]=\{0\}$, so $m_\lambda-1\le\lfloor(p-1)/3\rfloor$.
+There are no Gaussian exceptions for $p\ge5$.
+\end{proof}
+These are deliberately coarse explicit upper bounds, not predictions of the
+actual class-field degrees. Sector-specific dimensions are usually more useful.
+
+\section{Complete small-order certificates}\label{sec:small}
+\subsection{The cyclic group of order three}
+Use $G=\Z/3\Z$, $s=\sqrt3$, $r=(-1+is)/2$, $q(1)=q(2)=r$, and
+$K=\Q(s,i)=\Q(\zeta_{12})$. Write $E=(a,b,d)$ and $C=c$.
+Eliminating the ideal $(P_{xy},tc-1)$ with lexicographic order
+$t,c,d,a,b$ gives
+\[
+ K[X_{G,q}]\simeq K[b]/(p(b)),
+\]
+where
+\begin{align*}
+ p(b)&=b^5+2ib^4-2b^3+(s-i)b^2+(1+si)b-(s-i)/2\\
+ &=\left(b+\frac{s+i}{2}\right)Q(b),\\
+ Q(b)&=b^4+\frac{-s+3i}{2}b^3-\frac{1+si}{2}b^2+sb+r.
+\end{align*}
+The other coordinates are recovered by
+\begin{align*}
+ a={}&-ib^4+\frac{5+si}{2}b^3-(s-2i)b^2-si b+\frac{3s+i}{2},\\
+ d={}&ib^4-(1+si)b^3+(s+i)b^2-(1-si)b-2i,\\
+ c={}&-(1-si)b^4-\frac{3s+5i}{2}b^3+(2-si)b^2-(s-3i)b-\frac{5+si}{2},\\
+ t={}&si b^4-(2s+2i)b^3+(3-si)b^2+3ib-\frac{3+si}{2}.
+\end{align*}
+These polynomials, together with $p(b)$, form the computed reduced Groebner
+basis in solved form. The script regenerates it directly from the original
+cubic equations, rather than accepting these formulas as input.
+
+Exact discriminant calculations give
+\[
+ \disc Q=-147,
+ \qquad Q\left(-\frac{s+i}{2}\right)=r,
+ \qquad \disc p=-147r^2\ne0.
+\]
+Thus there are exactly five reduced geometric points. The linear factor gives
+\eqref{eq:exception3}. The four roots of $Q$ give the normalized solutions,
+with $\lambda=(s-i)/2$; substitution modulo $Q$ verifies all of
+\eqref{eq:norm0}--\eqref{eq:fourier}.
+
+One can also see that no normalized solution has $b=d$.
+In the normalized part the elimination equations give
+\[
+ b+d=\frac{a(1-si)}2,
+ \qquad (1+si)b^2-2ab+1-si=0,
+ \qquad a^2-sa-1=0.
+\]
+The discriminant of the quadratic in $b$ is $4(a^2-4)$, which is nonzero under
+the equation for $a$. Hence only the exceptional point has a constant
+punctured value, proving the needed order-three part of
+Proposition~\ref{prop:alternative}.
+
+The coefficients of $p$ are algebraic integers in $K$. Consequently
+$\mathcal O_K[1/21][b]/(p)$ is an explicit finite etale model of this generic
+solution algebra. This is a concrete good-reduction statement outside primes
+above $3$ and $7$ for this model, not a general conductor theorem for Stark
+values. The primitive polynomial gives an algebraic model; identifying its
+points with analytically selected special values is a separate task.
+
+\subsection{The anisotropic four-point metric}
+For $G=(\Z/2\Z)^2$, $q=(1,-1,-1,-1)$, $E=(a,b,d,e)$, the reduced
+lexicographic Groebner basis of $(P_{xy},tc-1)$ in the order $t,c,e,d,b,a$ is
+\[
+ t+1,\quad c+1,\quad e+1,\quad d+1,\quad b+1,\quad a-1.
+\]
+Thus this entire metric-specific solution scheme is the single reduced
+rational point already displayed. The existence theorem in \cite{RW} is an
+existence statement for each underlying two-generator group, not for every
+quadratic function on that group. There is no contradiction with that theorem.
+
+\section{An elementary recovery of a known higher-rank obstruction}\label{sec:two}
+Schopieray's earlier classification \cite[Theorem 1.1]{Sch} implies that the
+Izumi near-group ring for $(\Z/2\Z)^r$ with multiplicity $2^r$ is not
+categorifiable for $r\ge3$. Thus the nonexistence conclusion below is
+\emph{not new as a categorical consequence}. It is useful to recover it
+straight from the finite equations, without categorical rigidity or a
+unitarity assumption.
+
+\begin{proposition}
+For every $r\ge3$ and every metric quadratic function on
+$G=(\Z/2\Z)^r$, equation \eqref{eq:pent} has no solution with $C\ne0$.
+\end{proposition}
+\begin{proof}
+Put $N=2^r$. Since $N\ge8$, the corrected normalization has no exception.
+Every $u\ne0$ is its own negative, so
+\[
+ q(u)^4=1,\qquad E(u)^2=q(u)^{-1},\qquad E(u)\in\mu_8.
+\]
+Let $L=\Q(\zeta_8)$. The value $s=\sqrt N$ lies in $L$, and the Fourier
+matrix has entries $\pm1/s$. Since $qE$ is nonconstant off zero, subtracting
+the Fourier equations at two nonzero points with distinct values of $qE$
+shows that $\lambda\in L$: the terms involving $E(0)$ cancel and all other
+terms lie in $L$. Either Fourier equation then gives $e=E(0)\in L$.
+Because the two possible values of $e$ are real, $e\in\Q(\sqrt2)$.
+
+The identity $2e-s=\pm\sqrt{N+4}$ implies
+$\sqrt{2^{r-2}+1}\in\Q(\sqrt2)$. The positive integer $2^{r-2}+1$ is odd.
+An odd integer whose square root belongs to $\Q(\sqrt2)$ must be a square
+in $\Z$: its square class cannot be $2$. Thus
+\[
+ 2^{r-2}+1=m^2.
+\]
+The consecutive even integers $m-1,m+1$ have product a power of two. They
+must be $2,4$, so $m=3$, $r=5$, and $N=32$.
+
+It remains to exclude that order. Write $z=\zeta_8$ and
+$\sqrt2=z-z^3$. The Gaussian sum $\sum q(u)^{-1}$ is a Gaussian integer of
+norm $32$. It is therefore one of $\pm4\pm4i$, so $\Gamma$ is an odd power
+of $z$. As $\lambda^3=\Gamma$ and $\lambda\in L$, it follows that $\lambda$
+is an odd power of $z$ as well. Here the only roots of unity in $L$ are
+$\mu_8$; equivalently, a nontrivial cube root of unity would generate the
+quadratic subfield $\Q(\sqrt{-3})$, which $L$ does not have.
+
+The Fourier equation at zero now requires a sum of 31 eighth roots of unity
+to equal
+\[
+ \sum_{u\ne0}E(u)=(4\sqrt2\lambda-1)(2\sqrt2\pm3).
+\]
+Use the rational basis $1,z,z^2,z^3$ of $L$. Any sum of 31 elements of
+$\mu_8=\{\pm1,\pm z,\pm z^2,\pm z^3\}$ has coefficient $\ell^1$ norm at
+most 31. For $\lambda=z,z^3,z^5,z^7$ the displayed right side has coefficient
+norm, respectively,
+\[
+ 37,\quad47,\quad47,\quad37,
+\]
+for either sign. For example when $\lambda=z$ and the sign is positive it is
+$9+14z+12z^2+2z^3$. The other seven expansions are included in the exact
+verification output. This contradiction excludes $N=32$ as well.
+\end{proof}
+
+\section{Arithmetic scope}
+Under Hypothesis~\ref{hyp:realization}, Theorem~\ref{thm:etale} gives a
+finite \'{e}tale $K$-algebra, hence a product of finite separable extensions.
+For the two explicitly computed metrics in Section~\ref{sec:small}, this
+conclusion is unconditional.
+A generic linear combination of the coordinate functions is a primitive
+element, yielding a squarefree univariate presentation and polynomial
+recovery of every coordinate. Clearing denominators in this presentation and
+its inverse, and inverting its discriminant, gives an effectively computable
+integer $D\ne0$ and a finite etale model over $\mathcal O_K[1/D]$.
+This provides good reduction and unique infinitesimal lifting outside a
+finite computable set; no small uniform formula for $D$ is claimed.
+
+These conclusions do not prove algebraic integrality or a unit property,
+identify the predicted ray class fields, determine the Artin action, or
+produce unitary Galois conjugates. Algebraicity and the equations already
+gave a Galois permutation action. Finite etaleness adds infinitesimal and
+reduction control, not an automatic reciprocity law. These distinctions
+agree with the open questions in \cite[\S6]{RW}.
+
+For an EIT-style program the contribution is methodological: study the
+actual relation scheme and its tangent spaces, rather than only numerical
+relations at one point. No polynomial EIT theorem is applied here to the
+quantum dilogarithm; its categorical relation system is analysed on its own
+terms.
+
+\section*{Reproducibility and research disclosure}
+The script \texttt{scripts/verify\_rw\_extensions.py} regenerates the
+exceptional solutions, full-rank tangent minors, and saturated low-order
+Gr\"obner bases from the raw equations. It also checks the finite
+root-of-unity calculation for $N=32$. Its output is recorded in the
+repository. These exact checks prove the stated finite certificates, not
+the arbitrary-group realization hypothesis. AI-assisted tools were used
+for drafting, proof exploration, literature comparison, and internal checks.
+The manuscript has not been independently refereed or formally verified.
+
+\begingroup
+\small
+\begin{thebibliography}{99}
+\setlength{\itemsep}{2pt}
+\bibitem{RW}
+D.~Radchenko and C.~Wheeler,
+\emph{Real quadratic fields and finite quantum dilogarithms I},
+\href{https://arxiv.org/abs/2609.21892v1}{arXiv:2609.21892v1}, September 18, 2026.
+Historical equation and theorem numbers explicitly marked as version 1 refer to this source.
+\bibitem{RW2}
+D.~Radchenko and C.~Wheeler,
+\emph{Real quadratic fields and finite quantum dilogarithms I},
+\href{https://arxiv.org/abs/2609.21892v2}{arXiv:2609.21892v2}, September 29, 2026.
+\bibitem{AFK}
+M.~Appleby, S.~T.~Flammia, and G.~S.~Kopp,
+\emph{The twisted convolution identity and ghost $r$-SICs from finite quantum dilogarithms},
+\href{https://arxiv.org/abs/2609.39192v1}{arXiv:2609.39192v1}, September 30, 2026.
+\bibitem{LongQuantum}
+C.~D.~Long,
+\emph{Rational-Exponential Iterated Integrals and Quantum Polylogarithms:
+Absolute fixed-parameter completeness and a pentagon crossed product},
+research draft, October 1, 2026.
+Companion manuscript in
+\href{https://github.com/long-mathematics/quantum-polylogarithms-finite-dilogarithms}{the project repository}.
+\bibitem{ENO}
+P.~Etingof, D.~Nikshych and V.~Ostrik,
+\emph{On fusion categories}, Annals of Mathematics \textbf{162} (2005),
+581--642; arXiv:math/0203060. We use Theorem 2.27 and the first-order
+interpretation in Section 7.1, not the later corrected lifting-faithfulness
+statements.
+\bibitem{Sch}
+A.~Schopieray,
+\emph{Categorification of integral group rings extended by one dimension},
+Journal of the London Mathematical Society \textbf{108} (2023), 1617--1641.
+Theorem 1.1 gives the earlier elementary-abelian 2-group categorification
+obstruction.
+\end{thebibliography}
+\endgroup
+\end{document}
