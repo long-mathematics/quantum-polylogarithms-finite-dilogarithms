@@ -11,6 +11,7 @@ papers:
 verify-exact:
 	mkdir -p verification
 	$(PYTHON) scripts/verify_rw_extensions.py > verification/finite_exact.txt
+	$(PYTHON) scripts/verify_rigidity_identities.py > verification/rigidity_exact.txt
 	$(PYTHON) scripts/checks_absolute.py --mode exact --output verification/quantum_exact.json
 
 verify: verify-exact

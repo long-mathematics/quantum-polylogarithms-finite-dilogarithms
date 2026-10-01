@@ -1,0 +1,7 @@
+Correct completeness coefficient: N/d^2 + N/d = 1 modulo d^2-N(d+1).
+Printed coefficient residual: N(N-1)/d^2 (not zero for N > 2).
+Scalar-normalization discriminant identity: exact.
+Normalized common-unit invariance and independent-unit obstruction: exact.
+Character projectors: 31 diagonal entries over exact cyclotomic fields; groups=[(3,), (4,), (5,), (2, 2), (2, 3), (3, 3)].
+Formal Leavitt reconstruction: 16 coordinates equal E_g/s; groups=[(3,), (4,), (5,), (2, 2)].
+PASS. Finite regression scope only; not a certification of the general categorical proof.

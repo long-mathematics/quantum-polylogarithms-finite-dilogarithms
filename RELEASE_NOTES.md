@@ -1,3 +1,13 @@
+# Unreleased — audited infinitesimal-rigidity revision
+
+The main-branch revision discharges the original Hypothesis 3.1. The finite manuscript now proves finite étaleness of the actual raw scheme using a universal normalized-ring Leavitt realization, a flat split skeleton, normalized scalar reconstruction, and ENO first-order rigidity. It corrects the displayed RW completeness coefficient and includes the associator/tensorator argument excluding basis-gauge motions.
+
+The title, abstract, arithmetic consequences, companion-paper reference, README, citation metadata, and research/provenance ledgers are synchronized. Exact rigidity regression checks supplement the existing verifiers. These finite checks and successful PDF builds are not a formal certification of the arbitrary-group categorical proof.
+
+The historical release below and its tag/assets are unchanged. No new tagged release is created by this revision.
+
+---
+
 # Initial public research drafts — v0.1.0
 
 Two manuscripts by Christopher D. Long, released October 1, 2026:
