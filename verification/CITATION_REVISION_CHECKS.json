@@ -1,0 +1,19 @@
+{
+  "base_commit": "d3cb0989d12988b507c6126e03488e0c2ebb2f78",
+  "finite_mathematical_core_unchanged": true,
+  "historical_release_unchanged": true,
+  "manuscripts": [
+    {
+      "file": "papers/finite_quantum_dilogarithms.tex",
+      "sha256": "cdabde7ccd93992553e5041c426f2a99224db98bd144ee4143658204de34b798",
+      "unchanged_mathematical_environments": 25
+    },
+    {
+      "file": "papers/quantum_polylogarithms.tex",
+      "sha256": "47118b0f763638b2bb0014383727a39366609e672261b7c3d435174cc0da7fe6",
+      "unchanged_mathematical_environments": 65
+    }
+  ],
+  "scope": "Citation-only revision on the merged rigidity proof; not independent mathematical verification.",
+  "status": "passed"
+}

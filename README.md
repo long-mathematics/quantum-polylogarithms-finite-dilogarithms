@@ -32,6 +32,8 @@ These manuscripts were developed with AI assistance and checked internally. They
 
 Radchenko–Wheeler's finite pentagon, algebraicity, and finiteness results, and Appleby–Flammia–Kopp's all-rank twisted-convolution result and modular-cocycle dictionary, are cited background. The small-order normalization exceptions are acknowledged in Radchenko–Wheeler v2, Remark 3; this release makes no priority claim for noticing them.
 
+The related-work discussion also distinguishes Huang and Gannon–Schopieray–Yadav on HI categories, the earlier AFK Stark/SIC framework, Kopp’s Shintani–Faddeev cocycle, and the different q-iterated-integral theories of Seki and Blümlein–Gavrilik–Mykhailiv–Schneider. The [citation audit](CITATION_AUDIT.md) records versions, theorem pointers, and the distinction between proof dependencies and contextual references. In particular, GSY already has commutative-ring identities as well as field-based reconstruction statements.
+
 See [research status](RESEARCH_STATUS.md), [source/version provenance](PROVENANCE.md), and the [focused realization/reconstruction audit](audits/2026-10-01-hypothesis-3-1.md) for exact boundaries.
 
 ## Reproducible checks
@@ -49,12 +51,13 @@ The individual checks are:
 ```sh
 python scripts/verify_rw_extensions.py
 python scripts/verify_rigidity_identities.py
+python scripts/check_manuscript_integrity.py --output verification/manuscript_integrity.json
 python scripts/checks_absolute.py --mode exact --output verification/quantum_exact.json
 python scripts/checks_absolute.py --mode numeric --output verification/quantum_numeric.json
 python scripts/checks_v1.py --output verification/quantum_contours.json
 ```
 
-`checks_v1.py` retains its historical filename; its contour and normalization tests remain applicable to the current functional manuscript. The tracked [verification reports](verification/) include the current regression runs; `RELEASE_CHECKS.json` remains the historical initial-release record. The new rigidity checks cover scalar identities, representative character projectors, and formal reconstruction contractions. They do not certify the arbitrary-group categorical proof. Both compiled PDFs are intentionally tracked. Build artifacts such as `.aux` and `.log` files are ignored.
+`checks_v1.py` retains its historical filename; its contour and normalization tests remain applicable to the current functional manuscript. The tracked [verification reports](verification/) include the current regression runs; `RELEASE_CHECKS.json` remains the historical initial-release record. The new rigidity checks cover scalar identities, representative character projectors, and formal reconstruction contractions. They do not certify the arbitrary-group categorical proof. The manuscript-integrity check validates bibliography keys, labels, required related-work citations, and accidental control characters; it is not a mathematical or exhaustive literature check. Both compiled PDFs are intentionally tracked. Build artifacts such as `.aux` and `.log` files are ignored.
 
 ## Contents
 

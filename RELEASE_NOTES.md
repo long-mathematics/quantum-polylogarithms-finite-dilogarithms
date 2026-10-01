@@ -1,3 +1,11 @@
+# Unreleased — citation and provenance audit (October 1, 2026)
+
+Expand both manuscripts with concurrent and related developments. Add Huang, Gannon–Schopieray–Yadav, earlier AFK, Kopp, Seki, and Blümlein–Gavrilik–Mykhailiv–Schneider, and explicitly credit Evans–Gannon in the finite paper. Preserve the audited proof merged in PR #3, including all generator formulas and regression checks. The citation discussion distinguishes GSY’s commutative-ring identities from its field-based reconstruction, and avoids identifying different fusion rules or different q-deformations.
+
+Synchronize the README, provenance, research status, and citation guidance; add the source/version audit and reproducible bibliography/cross-reference checks. Both PDFs and verification outputs are rebuilt. No release tag or historical asset is rewritten.
+
+---
+
 # Unreleased — audited infinitesimal-rigidity revision
 
 The main-branch revision discharges the original Hypothesis 3.1. The finite manuscript now proves finite étaleness of the actual raw scheme using a universal normalized-ring Leavitt realization, a flat split skeleton, normalized scalar reconstruction, and ENO first-order rigidity. It corrects the displayed RW completeness coefficient and includes the associator/tensorator argument excluding basis-gauge motions.
