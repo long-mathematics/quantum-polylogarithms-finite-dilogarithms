@@ -1,0 +1,81 @@
+name: Stage initial manuscripts
+
+on:
+  push:
+    branches: [release/initial]
+    paths: [.github/workflows/bootstrap.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  stage:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: release/initial
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Recover hash-verified source bundle
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import base64, hashlib, io, os, subprocess, tarfile
+          from pathlib import PurePosixPath
+          hashes = [
+              'f07b18d2c5a03d8ea31b7806aec8168173df430f',
+              '7650d46d5ce81835d16d697bcc1827543a9bc966',
+              '798e9d083ea2d0e5eaf7966319851eab703c42a1',
+              '3b37be443ab3805b02e3851fa69a3574e28599fc',
+              '95ebdc73488c97e4e3e9a01c76c4881c061c6dec',
+              '2491f0c03b40768847f2639754d1e9c3a57381aa',
+              '46956dd961ede03991531985292ec171284e84b8',
+              '0ba8f6388380168ad0cd478c675a3bd79497fdf3',
+              'f166b301b969c52d2fa22a880f9e7e7e4f68ad22',
+          ]
+          parts = []
+          for sha in hashes:
+              encoded = subprocess.check_output([
+                  'gh', 'api', f'repos/{os.environ["GH_REPO"]}/git/blobs/{sha}', '--jq', '.content'
+              ])
+              data = base64.b64decode(encoded)
+              assert hashlib.sha1(f'blob {len(data)}\0'.encode() + data).hexdigest() == sha
+              parts.append(data)
+          data = b''.join(parts)
+          assert hashlib.sha256(data).hexdigest() == 'd2406faa76d030079e9f9fb4392bc8c30bbe5f257544aa18497ce29bcb8a1837'
+          with tarfile.open(fileobj=io.BytesIO(data), mode='r:xz') as archive:
+              for member in archive.getmembers():
+                  path = PurePosixPath(member.name)
+                  assert member.isfile() and not path.is_absolute() and '..' not in path.parts
+                  assert path.parts[0] not in {'.git', '.github', 'LICENSE'}
+              archive.extractall('.', filter='data')
+          print('Verified and extracted all 18 source/support files.')
+          PY
+      - name: Install build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends latexmk texlive-latex-extra texlive-fonts-recommended lmodern
+          python -m pip install -r requirements.txt
+      - name: Run checks and build PDFs
+        run: |
+          set -euo pipefail
+          make verify
+          make papers
+          if grep -E 'Overfull|LaTeX Warning:.*(undefined|multiply defined)|^!' papers/*.log; then
+            echo 'Unresolved LaTeX diagnostics' >&2
+            exit 1
+          fi
+      - name: Commit verified manuscripts to release branch
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .gitignore CITATION.cff Makefile PROVENANCE.md README.md RELEASE_NOTES.md RESEARCH_STATUS.md requirements.txt papers scripts verification
+          git commit -m 'Add two audited research drafts, compiled PDFs, and reproducible checks'
+          git push origin HEAD:release/initial
