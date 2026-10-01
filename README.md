@@ -32,7 +32,7 @@ These manuscripts were developed with AI assistance and checked internally. They
 
 Radchenko–Wheeler's finite pentagon, algebraicity, and finiteness results, and Appleby–Flammia–Kopp's all-rank twisted-convolution result and modular-cocycle dictionary, are cited background. The small-order normalization exceptions are acknowledged in Radchenko–Wheeler v2, Remark 3; this release makes no priority claim for noticing them.
 
-The related-work discussion also distinguishes Huang and Gannon–Schopieray–Yadav on HI categories, the earlier AFK Stark/SIC framework, Kopp’s Shintani–Faddeev cocycle, and the different q-iterated-integral theories of Seki and Blümlein–Gavrilik–Mykhailiv–Schneider. The [citation audit](CITATION_AUDIT.md) records versions, theorem pointers, and the distinction between proof dependencies and contextual references. In particular, GSY already has commutative-ring identities as well as field-based reconstruction statements.
+The related-work discussion also distinguishes Huang and Gannon–Schopieray–Yadav on HI categories, the earlier AFK Stark/SIC framework, Kopp’s Shintani–Faddeev cocycle, Bengtsson–McConnell on Stark units in SIC overlaps, and the distinct q-iterated-integral theories of Hirose/Seki and Blümlein–Gavrilik–Mykhailiv–Schneider. The [citation audit](CITATION_AUDIT.md) records versions, theorem pointers, and the distinction between proof dependencies and contextual references. In particular, GSY already has commutative-ring identities as well as field-based reconstruction statements.
 
 See [research status](RESEARCH_STATUS.md), [source/version provenance](PROVENANCE.md), and the [focused realization/reconstruction audit](audits/2026-10-01-hypothesis-3-1.md) for exact boundaries.
 

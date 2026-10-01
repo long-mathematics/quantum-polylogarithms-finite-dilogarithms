@@ -19,11 +19,13 @@ Checked October 1, 2026 against the specified primary-source versions. “Posted
 |---|---|
 | Marcus Appleby, Steven T. Flammia, and Gene S. Kopp, *A Constructive Approach to Zauner's Conjecture via the Stark Conjectures*, [v2](https://arxiv.org/abs/2501.03970v2), March 17, 2025 (first posted January 7, 2025) | Both papers. The earlier conditional Stark/SIC and twisted-convolution framework. Not cited as an unconditional Stark reciprocity theorem. |
 | Gene S. Kopp, *The Shintani–Faddeev modular cocycle: Stark units from q-Pochhammer ratios*, [v3](https://arxiv.org/abs/2411.06763v3), May 3, 2025 (first posted November 11, 2024) | Both papers. Foundational cocycle and real-multiplication/Stark context. This contextual relation does not supply a generic-to-arithmetic specialization morphism for our functional algebra. |
+| Ingemar Bengtsson and Gary McConnell, *How Stark units enter SIC overlaps*, [v1](https://arxiv.org/abs/2606.23535v1), June 22, 2026 | Both arithmetic-background passages. Gives exact and numerical evidence that SIC overlap units are products of integral powers of square roots of Stark units from associated ray class fields; explicitly complementary to the Shintani–Faddeev-cocycle picture. It is contextual evidence, not an input to finite-QD rigidity or functional completeness. |
 
 ## Other deformations of iterated integrals
 
 | Source and version | Verified role and placement |
 |---|---|
+| Minoru Hirose, *Conjectural duality for iterated q-integrals on P1 minus four generic points*, [v1](https://arxiv.org/abs/2605.00811v1), May 1, 2026 | Paper 1. Introduces the position-dependent-shift q-integrals and formulates the duality conjecture later proved by Seki. Distinct from Goncharov's Fourier-defined quantum polylogarithms. |
 | Shin-ichiro Seki, *A proof of Hirose's duality conjecture*, [v1](https://arxiv.org/abs/2609.40213v1), September 30, 2026 | Paper 1. Related word relations for a q-discretization on the four-punctured projective line with word-dependent shifts. Not identified with Goncharov's Fourier kernels or claimed to prove our completeness theorem. |
 | J. Blümlein, A. M. Gavrilik, O. Mykhailiv, and C. Schneider, *The q-extension of iterated integrals and nested sums in quantum field theory*, [v1](https://arxiv.org/abs/2608.02702v1), August 3, 2026 | Paper 1. A different q-iterated-integral/nested-sum construction. All four authors are included; the abstract-page display's abbreviated author count is not used. |
 
@@ -34,6 +36,10 @@ The chronology is not reduced to “RW, then AFK”: Huang and GSY are explicitl
 RW's HTML and PDF equation numbers are not always identical. The correction in the proof is pinned to **v2, Appendix B.1, printed PDF page 30**; the generator formulas and Appendix B proof are cited by section. The original PDF display was checked visually. No equation-number comparison alone is treated as evidence of a mathematical error.
 
 The bibliography-key and cross-reference checker is a reproducible bookkeeping check. It cannot verify a citation's mathematical applicability, publication history, or completeness; those are supplied by this source audit and the manuscript's explicit scope statements.
+
+### Final citation-to-claim pass
+
+A final claim-centered pass checked every externally attributed statement in the two introductions, the finite-paper realization/rigidity section, both arithmetic-scope discussions, and the operator appendix against the cited source and version. Proof dependencies are separated from contextual references. All bibliography entries are cited in text, no citation key is unresolved, and no recent paper located in the October 1 arXiv search duplicates the finite-étale/nonreduced-base theorem or the fixed-parameter residue-to-shuffle completeness theorem. This is a dated source audit, not a literature-wide priority guarantee.
 
 ## Reconciliation with the proof revision
 
