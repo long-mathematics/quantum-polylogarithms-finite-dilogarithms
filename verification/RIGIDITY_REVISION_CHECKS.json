@@ -1,0 +1,34 @@
+{
+  "kind": "local preparation record (not an independent proof certificate)",
+  "revision_date": "2026-10-01",
+  "github_base_commit": "9dd89632ae0ca50b65fd84c93cffb8d1be34e1eb",
+  "environment": {
+    "python": "3.13.5",
+    "sympy": "1.14.0",
+    "numpy": "2.3.5",
+    "mpmath": "1.3.0"
+  },
+  "checks": {
+    "make_verify": "passed",
+    "both_pdf_builds": "passed",
+    "overfull_boxes": 0,
+    "undefined_or_multiply_defined_references": 0,
+    "git_diff_check": "passed",
+    "finite_manuscript_pages": 15,
+    "functional_manuscript_pages": 27,
+    "finite_pdf_pages_rendered_and_inspected": "all 15 pages, using PyMuPDF",
+    "rigidity_projector_diagonal_entries": 31,
+    "rigidity_formal_reconstruction_coordinates": 16
+  },
+  "source_sha256": {
+    "papers/finite_quantum_dilogarithms.tex": "cd0aa55d3660026670a6aa415cb25b74afdef64aa51475887e351d2280b12417",
+    "papers/quantum_polylogarithms.tex": "fa50770fa9c69fa16b933a7950a5dd26718ae3cc1100b980289a2451588a5a2e",
+    "scripts/verify_rigidity_identities.py": "67a069a8999ad1f4082b28762de7490f93820b2511996f1209fe1a4bb22ca034"
+  },
+  "limitations": [
+    "Finite regression checks do not certify the arbitrary-group categorical argument.",
+    "Manuscripts are internally audited, not independently refereed or formally verified.",
+    "This records local preparation; GitHub Actions records its own subsequent build and verification.",
+    "The historical v0.1.0 tag and release assets are unchanged."
+  ]
+}

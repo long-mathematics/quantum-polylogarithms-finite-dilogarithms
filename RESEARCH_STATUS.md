@@ -1,4 +1,4 @@
-# Research status — initial public draft
+# Research status — audited infinitesimal-rigidity revision
 
 **Date:** October 1, 2026. This is a claim/dependency ledger, not an independent referee report or a certificate of literature-wide novelty.
 
@@ -24,15 +24,16 @@ The October 1 cleanup retains the stronger September 22 version-2 coefficient-fi
 | Cyclic order-three scheme | Exactly five reduced geometric points for the specified metric, certified by the saturated Gröbner calculation and squarefree primitive polynomial. |
 | Anisotropic four-point scheme | Exactly one reduced rational point, certified by a saturated Gröbner basis. |
 | Eigenspace degree bounds | Uses the existing finiteness theorem; does not depend on the general finite-étale criterion. Cubic Bézout bound in general and quadratic bound in prime order. |
-| General finite étaleness of the raw defining scheme | **Conditional** on the normalized categorical realization and reconstruction over dual numbers (Hypothesis 3.1). |
-| Flatness and rigidity implication | The draft proves flatness of the relevant Hom spaces and the deduction from first-order categorical rigidity, once the realization hypothesis is supplied. |
-| General good reduction / nilpotent lifting conclusions | Conditional when deduced from the general criterion; unconditional for the explicitly computed reduced schemes. |
+| Universal normalized realization | Proved by identities in the normalized coordinate ring without taking its radical. Includes the corrected RW completeness coefficient, correlation and dual pentagon, split fusion, and snake identities. |
+| General finite étaleness of the raw defining scheme | **Proved in the revised draft (Theorem 3.1).** Uses universal realization, flatness, normalized reconstruction, and ENO first-order rigidity; exceptional points use exact Jacobian certificates. |
+| Flatness and normalized reconstruction | Free Hom modules are proved over the dual numbers. The distinguished line requires a generator, the normalized U_g force common rescaling, and explicit associator/tensorator coherence proves invariance. |
+| General good reduction / nilpotent lifting conclusions | Follow from finite étaleness; no extra realization hypothesis. Explicit low-order models retain their separate exact certificates. |
 | Elementary-abelian two-group obstruction | Already known categorically. The draft gives an elementary recovery, not a new existence/nonexistence theorem. |
 
-The general finite-étale assertion in the earlier working note is **not released as an unconditional theorem**. Passing from identities over fields to identities over nonreduced rings requires a ring-level argument. The exact small-order verifier does not supply that argument for every metric group.
+The historical `v0.1.0` release stated the general theorem conditionally. The current revision discharges that hypothesis with a ring-level proof and normalized categorical reconstruction; it does not infer nonreduced-base validity from complex-point identities. The [audit record](audits/2026-10-01-hypothesis-3-1.md) documents the corrected completeness coefficient and the gauge-normalization details. The new exact regression script does not replace the arbitrary-group proof. This remains an internally audited research draft, not independent peer review or formal verification.
 
 ## Outstanding interfaces
 
-The principal unresolved release obligation for the finite paper is a complete ring-level verification of the specified RW Leavitt realization, split fusion/duality identities, and invariant scalar reconstruction over dual numbers. A functional-to-arithmetic specialization functor with an independently identified kernel is a different problem, as are Stark/Artin reciprocity and the required unitary Galois conjugates. None is inferred from functional independence, finiteness of a complex solution set, or the existence of a Galois action on algebraic points.
+The initial finite-paper realization obligation is discharged in the revised draft. A functional-to-arithmetic specialization functor with an independently identified kernel remains a different, unresolved problem, as do Stark/Artin reciprocity and the required unitary Galois conjugates. None is inferred from functional independence, finiteness of a complex solution set, or the existence of a Galois action on algebraic points.
 
 The unitarity reduction discussed during research exploration is not included as a theorem or as a certified numerical result in this release.

@@ -6,12 +6,11 @@ authors:
   - family-names: Long
     given-names: Christopher D.
     email: galizur@gmail.com
-version: 0.1.0
-date-released: 2026-10-01
+version: 0.1.1-dev
 repository-code: "https://github.com/long-mathematics/quantum-polylogarithms-finite-dilogarithms"
 url: "https://github.com/long-mathematics/quantum-polylogarithms-finite-dilogarithms"
 license: MIT
-abstract: "Two research manuscripts and reproducible checks concerning fixed-parameter quantum polylogarithm relations and raw finite quantum-dilogarithm schemes. The general finite-etale result is conditional on a specified dual-number realization hypothesis."
+abstract: "Two research manuscripts and reproducible checks concerning fixed-parameter quantum polylogarithm relations and raw finite quantum-dilogarithm schemes. The revised finite-etale proof includes universal-ring realization and normalized reconstruction over dual numbers; the manuscripts remain internally audited research drafts."
 keywords:
   - quantum polylogarithms
   - quantum dilogarithms
