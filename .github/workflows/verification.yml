@@ -1,0 +1,60 @@
+name: Verify manuscripts
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install TeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends latexmk texlive-latex-extra texlive-fonts-recommended lmodern
+      - name: Install Python requirements
+        run: python -m pip install -r requirements.txt
+      - name: Verify exact certificates and analytic conventions
+        run: make verify
+      - name: Build both manuscripts
+        run: make papers
+      - name: Check LaTeX diagnostics
+        run: |
+          if grep -E 'Overfull|LaTeX Warning:.*(undefined|multiply defined)|^!' papers/*.log; then
+            echo 'Unresolved LaTeX diagnostics' >&2
+            exit 1
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: checked-manuscripts
+          path: |
+            papers/*.pdf
+            verification/
+          if-no-files-found: error
+
+  initial-release:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, 'Release v0.1.0:')
+    needs: verify
+    permissions:
+      contents: write
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish initial research-draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git archive --format=zip --output=quantum-dilogarithms-v0.1.0.zip HEAD
+          gh release create v0.1.0 papers/quantum_polylogarithms.pdf papers/finite_quantum_dilogarithms.pdf quantum-dilogarithms-v0.1.0.zip \
+            --target "$GITHUB_SHA" --title 'Initial research drafts (v0.1.0)' \
+            --notes-file RELEASE_NOTES.md --prerelease
