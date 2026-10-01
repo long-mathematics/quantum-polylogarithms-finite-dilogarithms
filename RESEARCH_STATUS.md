@@ -37,3 +37,7 @@ The historical `v0.1.0` release stated the general theorem conditionally. The cu
 The initial finite-paper realization obligation is discharged in the revised draft. A functional-to-arithmetic specialization functor with an independently identified kernel remains a different, unresolved problem, as do Stark/Artin reciprocity and the required unitary Galois conjugates. None is inferred from functional independence, finiteness of a complex solution set, or the existence of a Galois action on algebraic points.
 
 The unitarity reduction discussed during research exploration is not included as a theorem or as a certified numerical result in this release.
+
+## Related-work scope and revision integrity
+
+The [citation audit](CITATION_AUDIT.md) distinguishes concurrent HI constructions, the general finite-QD theory, Stark/cocycle motivation, and distinct q-iterated-integral theories. None of these contextual citations is presented as a proof of our generic-to-arithmetic specialization problem. The citation revision preserves the merged proof and both papers’ theorem/proof environments; its exact preservation check is recorded in `verification/CITATION_REVISION_CHECKS.json`.

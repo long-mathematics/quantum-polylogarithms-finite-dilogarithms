@@ -1,0 +1,22 @@
+{
+  "papers": [
+    {
+      "bibliography_entries": 11,
+      "cited_keys": 11,
+      "file": "papers/finite_quantum_dilogarithms.tex",
+      "labels": 41,
+      "status": "passed",
+      "unused_bibliography_keys": []
+    },
+    {
+      "bibliography_entries": 16,
+      "cited_keys": 16,
+      "file": "papers/quantum_polylogarithms.tex",
+      "labels": 116,
+      "status": "passed",
+      "unused_bibliography_keys": []
+    }
+  ],
+  "scope": "Citation and label bookkeeping, not mathematical or external-source verification.",
+  "status": "passed"
+}

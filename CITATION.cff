@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "Please cite the individual manuscript when referring to a theorem; use this entry for the repository collection."
+message: "Please cite the individual manuscript when referring to a theorem; use this entry for the repository collection and specify the commit or release consulted. Source/version details are recorded in CITATION_AUDIT.md."
 type: software
 title: "Quantum Polylogarithms and Finite Quantum Dilogarithms"
 authors:
