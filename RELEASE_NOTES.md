@@ -1,5 +1,7 @@
 # Unreleased — citation and provenance audit (October 1, 2026)
 
+Final citation-to-claim follow-up: add Hirose’s original q-integral duality conjecture alongside Seki’s proof and Bengtsson–McConnell’s Stark/SIC-overlap analysis alongside the cocycle/SIC arithmetic background. Record the dated final claim audit; no theorem statement or proof body changes.
+
 Expand both manuscripts with concurrent and related developments. Add Huang, Gannon–Schopieray–Yadav, earlier AFK, Kopp, Seki, and Blümlein–Gavrilik–Mykhailiv–Schneider, and explicitly credit Evans–Gannon in the finite paper. Preserve the audited proof merged in PR #3, including all generator formulas and regression checks. The citation discussion distinguishes GSY’s commutative-ring identities from its field-based reconstruction, and avoids identifying different fusion rules or different q-deformations.
 
 Synchronize the README, provenance, research status, and citation guidance; add the source/version audit and reproducible bibliography/cross-reference checks. Both PDFs and verification outputs are rebuilt. No release tag or historical asset is rewritten.
