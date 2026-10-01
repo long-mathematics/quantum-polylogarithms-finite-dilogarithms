@@ -1,0 +1,161 @@
+-| General finite étaleness of the raw defining scheme | **Conditional** on the normalized categorical realization and reconstruction over dual numbers (Hypothesis 3.1). |
+-| Flatness and rigidity implication | The draft proves flatness of the relevant Hom spaces and the deduction from first-order categorical rigidity, once the realization hypothesis is supplied. |
+-| General good reduction / nilpotent lifting conclusions | Conditional when deduced from the general criterion; unconditional for the explicitly computed reduced schemes. |
++| Universal normalized realization | Proved by identities in the normalized coordinate ring without taking its radical. Includes the corrected RW completeness coefficient, correlation and dual pentagon, split fusion, and snake identities. |
++| General finite étaleness of the raw defining scheme | **Proved in the revised draft (Theorem 3.1).** Uses universal realization, flatness, normalized reconstruction, and ENO first-order rigidity; exceptional points use exact Jacobian certificates. |
++| Flatness and normalized reconstruction | Free Hom modules are proved over the dual numbers. The distinguished line requires a generator, the normalized U_g force common rescaling, and explicit associator/tensorator coherence proves invariance. |
++| General good reduction / nilpotent lifting conclusions | Follow from finite étaleness; no extra realization hypothesis. Explicit low-order models retain their separate exact certificates. |
+ | Elementary-abelian two-group obstruction | Already known categorically. The draft gives an elementary recovery, not a new existence/nonexistence theorem. |
+ 
+-The general finite-étale assertion in the earlier working note is **not released as an unconditional theorem**. Passing from identities over fields to identities over nonreduced rings requires a ring-level argument. The exact small-order verifier does not supply that argument for every metric group.
++The historical `v0.1.0` release stated the general theorem conditionally. The current revision discharges that hypothesis with a ring-level proof and normalized categorical reconstruction; it does not infer nonreduced-base validity from complex-point identities. The [audit record](audits/2026-10-01-hypothesis-3-1.md) documents the corrected completeness coefficient and the gauge-normalization details. The new exact regression script does not replace the arbitrary-group proof. This remains an internally audited research draft, not independent peer review or formal verification.
+ 
+ ## Outstanding interfaces
+ 
+-The principal unresolved release obligation for the finite paper is a complete ring-level verification of the specified RW Leavitt realization, split fusion/duality identities, and invariant scalar reconstruction over dual numbers. A functional-to-arithmetic specialization functor with an independently identified kernel is a different problem, as are Stark/Artin reciprocity and the required unitary Galois conjugates. None is inferred from functional independence, finiteness of a complex solution set, or the existence of a Galois action on algebraic points.
++The initial finite-paper realization obligation is discharged in the revised draft. A functional-to-arithmetic specialization functor with an independently identified kernel remains a different, unresolved problem, as do Stark/Artin reciprocity and the required unitary Galois conjugates. None is inferred from functional independence, finiteness of a complex solution set, or the existence of a Galois action on algebraic points.
+ 
+ The unitarity reduction discussed during research exploration is not included as a theorem or as a certified numerical result in this release.
+diff --git a/audits/2026-10-01-hypothesis-3-1.md b/audits/2026-10-01-hypothesis-3-1.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..dfdeec08c93dd2ad7ff26442ac20ce8e4f1cee44
+--- /dev/null
++++ b/audits/2026-10-01-hypothesis-3-1.md
+@@ -0,0 +1,33 @@
++# Focused audit: realization and normalized reconstruction
++
++Date: October 1, 2026. Scope: Steps 2 and 5 of the proposed proof discharging the initial finite-paper Hypothesis 3.1. This is an internal mathematical audit, not independent peer review or formal verification.
++
++## Sources and baseline
++
++The baseline is the initial repository release, commit `9dd89632ae0ca50b65fd84c93cffb8d1be34e1eb`. The primary sources are [RW v2](https://arxiv.org/abs/2609.21892v2), Sections 5.4–5.5 and Appendix B, and [ENO, On fusion categories](https://annals.math.princeton.edu/wp-content/uploads/annals-v162-n2-p01.pdf), Theorem 2.27 and Section 7.1. The original field-extension remark does not itself cover nonreduced rings.
++
++## Step 2: nonreduced-base realization
++
++**Finding.** The displayed completeness expansion in RW Appendix B.1, printed PDF page 30, contains `N(N+d)/d^2` multiplying the sum of `S_h S_h'`. The coefficient obtained directly from the generator formulas is `N/d^2 + N/d = N(1+d)/d^2 = 1`. The printed expression has residual `N(N-1)/d^2` under `d^2=N(d+1)`. This corrects an intermediate calculation, not the generator formulas or the construction.
++
++**Repair incorporated.** The manuscript works in a fixed-sector normalized coordinate ring before taking any radical. It proves the correlation identity by finite Fourier inversion, derives the dual pentagon by an invertible Fourier transformation (not conjugation), lists all generator formulas, gives the corrected completeness expansion, and identifies the Fourier/correlation/Gaussian/dual-pentagon reductions in the fusion proof. Final cancellations use completeness, not cancellation of a possible zero divisor. Split maps and snake identities are retained explicitly.
++
++**Flatness.** The dual-number Hom-space proof uses freeness of the ambient Leavitt algebra, scalar endomorphisms and zero cross-Hom spaces on the special fiber, and explicit split fusion. No assertion of semisimplicity over the dual numbers or arbitrary-base preservation of kernels is used.
++
++## Step 5: invariance under monoidal gauge
++
++**Finding.** Independent rescalings `T_g -> u_g T_g` change the reconstructed scalar by `u_g/u_0`. Merely counting primed and unprimed factors therefore does not establish invariance. Also, a nonzero element of a rank-one module over the dual numbers need not generate it.
++
++**Repair incorporated.** The character-average projector identifies the distinguished line as the free summand `A T_0`. Its selected element must be a generator (nonzero reduction). The isomorphisms defining `U_g` are normalized by their action on `Hom(1,rho^2)`, forcing a single common rescaling of the entire `T_g` family. The reconstructed scalar includes the inverse associator. Transport under an A-linear strong monoidal equivalence includes the tensorator and unit constraint, preserves the distinguished line and normalized `U_g`, and yields equality of scalars in A, not just modulo epsilon.
++
++The direct Leavitt contraction leaves exactly `E_A(g)/sqrt(N)`. The ENO trivialization is taken on the fixed labelled skeleton and reduces to the identity; no discrete automorphism of the group moves the labels.
++
++## Consequence and limits
++
++With the repairs above, the proof discharges the original realization hypothesis. ENO first-order rigidity kills all nonexceptional tangent vectors; exact small-order Jacobian certificates handle the exceptional points. Nakayama's lemma and descent give finite étaleness of the actual raw scheme. No arithmetic-specialization functor, Stark reciprocity, or unitary Galois-conjugate theorem follows from this argument.
++
++## Regression material
++
++`verify_rigidity_identities.py` checks the scalar correction, the normalization discriminant, common-unit cancellation and its independent-unit obstruction, 31 representative character-projector diagonal entries over exact cyclotomic fields, and 16 formal Leavitt reconstruction contractions with symbolic coefficients. These are finite exact regression checks, not a verification of all Appendix-B identities for arbitrary metric groups or a formalization of monoidal coherence. The original low-order and functional verifiers remain in place.
++
++See `verification/rigidity_exact.txt` and `verification/RIGIDITY_REVISION_CHECKS.json` for the recorded local preparation run. Historical `v0.1.0` metadata is preserved separately.
+diff --git a/papers/finite_quantum_dilogarithms.tex b/papers/finite_quantum_dilogarithms.tex
+index a7d7bca4108fd41133514007e22d91139c610d67..d8178591db8f8e605588ef248aa3e5bccd7c12f2 100644
+--- a/papers/finite_quantum_dilogarithms.tex
++++ b/papers/finite_quantum_dilogarithms.tex
+@@ -6,5 +6,5 @@
+ \usepackage{booktabs,microtype,enumitem}
+ \usepackage[hidelinks]{hyperref}
+-\hypersetup{pdftitle={Finite quantum dilogarithms: rigidity and effective bounds},pdfauthor={Christopher D. Long}}
++\hypersetup{pdftitle={Finite Quantum Dilogarithms: Normalization Exceptions, Infinitesimal Rigidity, and Effective Degree Bounds},pdfauthor={Christopher D. Long}}
+ \usepackage{fancyhdr}
+ \pagestyle{fancy}
+@@ -19,5 +19,4 @@
+ \newtheorem{lemma}[theorem]{Lemma}
+ \newtheorem{corollary}[theorem]{Corollary}
+-\newtheorem{hypothesis}[theorem]{Hypothesis}
+ \theoremstyle{remark}
+ \newtheorem{remark}[theorem]{Remark}
+@@ -38,7 +37,7 @@
+ \newcommand{\eps}{\varepsilon}
+ \newcommand{\qd}{\mathrm{qd}}
+-\title{Finite Quantum Dilogarithms:\\Normalization Exceptions, Effective Degree Bounds,\\and an Infinitesimal Rigidity Criterion}
++\title{Finite Quantum Dilogarithms:\\Normalization Exceptions, Infinitesimal Rigidity,\\and Effective Degree Bounds}
+ \author{Christopher D. Long}
+-\date{October 1, 2026\\[2pt]\small Research draft, initial GitHub release}
++\date{October 1, 2026\\[2pt]\small Research draft, audited infinitesimal-rigidity revision}
+ \begin{document}
+ \maketitle
+@@ -51,8 +50,9 @@ metric and the anisotropic four-point metric, and give exact certificates
+ for their reducedness. Using the known finiteness theorem, a Fourier--Weil
+ eigenspace reduction gives explicit algebraic-degree bounds, with a sharper
+-bound in prime order. Separately, we formulate a nonreduced-base realization
+-hypothesis for the categorical construction and prove that it implies finite
+-\'{e}taleness of the full raw solution scheme. The required flatness and
+-coordinate-reconstruction arguments are distinguished from that hypothesis.
++bound in prime order. We prove finite \'{e}taleness of the full raw solution
++scheme by extending the normalized Leavitt construction over the dual
++numbers and reconstructing its coordinates as monoidal invariants. The
++proof includes a corrected completeness coefficient, an explicit flatness
++argument, and normalized reconstruction with associators and tensorators.
+ An elementary calculation also recovers a known obstruction for higher-rank
+ elementary abelian two-groups.
+@@ -61,8 +61,9 @@ elementary abelian two-groups.
+ \paragraph{Status and provenance.}
+ This is a research draft. The exact small-order certificates and degree bounds
+-do not depend on the general finite-\'{e}tale criterion. That criterion is
+-conditional on Hypothesis~\ref{hyp:realization}; it is not asserted here as
+-an unconditional reducedness theorem. The original working note was dated
+-September 21, 2026. This release compares it with Radchenko--Wheeler's
++do not depend on the general finite-\'{e}tale proof. The present revision
++discharges the dual-number realization hypothesis of the initial release;
++Theorem~\ref{thm:etale} concerns reducedness of the actual defining scheme.
++The argument is internally audited, not independently refereed or formally verified. The original working note was dated
++September 21, 2026. We compare the draft with Radchenko--Wheeler's
+ September 29 version \cite{RW2}, which restricts Theorem~5 to $N>4$ and
+ explicitly records small-order exceptions in Remark~3. The finite pentagon,
+@@ -237,166 +238,483 @@ without exceptions when $N\ge5$, as in \cite[Theorem~5]{RW2}.
+ \end{proposition}
+ 
+-\section{An infinitesimal criterion for finite \'{e}taleness}
++\section{Infinitesimal rigidity and finite \'{e}taleness}
+ \label{sec:rigidity}
+ 
+-\begin{hypothesis}[Normalized realization over dual numbers]
+-\label{hyp:realization}
+-Let $A=\C[\varepsilon]/(\varepsilon^2)$ and let $(E_A,C_A)$ be an $A$-valued
+-solution of the raw equations reducing to a nonexceptional complex solution.
+-After the normalization of Lemma~\ref{lem:normal}, the Leavitt formulas,
+-split fusion maps, and duality maps of \cite[Section~5.4 and Appendix~B]{RW2}
+-define the same identities over $A$. The scalar reconstruction of
+-\cite[Section~5.5]{RW2} is compatible with this base change and with labelled
+-monoidal equivalences reducing to the identity.
+-\end{hypothesis}
+-
+-The formulas have algebraic coefficients and unit denominators, which makes
+-this a concrete ring-level verification problem. Field-valued identities
+-alone do not establish the hypothesis. In particular, the extension to
+-fields mentioned in \cite[Remark~5]{RW2} does not include nonreduced rings.
+-We isolate this input rather than infer it from a zero-dimensional complex
+-solution set. The finite computations below do not verify it for arbitrary
+-metric groups.
+-
+-\begin{theorem}[Conditional finite-\'{e}tale criterion]\label{thm:etale}
+-Assume Hypothesis~\ref{hyp:realization} for every nonexceptional complex
+-solution. Then $X_{G,q}$ is finite \'{e}tale over $K$ for every metric group
+-of order $N>2$.
++\begin{theorem}[Finite \'{e}taleness of the raw scheme]\label{thm:etale}
++For every metric group $(G,q)$ of order $N>2$, the scheme $X_{G,q}$ is
++finite \'{e}tale over $K$ (possibly empty). In particular, its actual
++localized defining ideal is radical.
+ \end{theorem}
+-The conclusion concerns the actual defining ideal, including infinitesimal
+-structure. The proof below supplies the flatness and rigidity arguments
+-once the specified realization input is available.
+ 
+-\subsection{The linearized equations}
+-At a nonexceptional solution write
++The proof uses the Leavitt construction and reconstruction of
++\cite[Sections~5.4--5.5 and Appendix~B]{RW2}, but requires their identities
++over a nonreduced base. We establish this extension below, including a
++correction to the displayed completeness calculation. We then prove
++flatness and invariance of the normalized reconstructed coordinates under
++strong monoidal equivalences. These arguments discharge the realization
++hypothesis in the initial release of this note.
++

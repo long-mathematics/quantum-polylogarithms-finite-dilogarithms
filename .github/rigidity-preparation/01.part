@@ -1,0 +1,142 @@
+diff --git a/CITATION.cff b/CITATION.cff
+index 9b6e0599243078d1b15b79c433273a32902ff6fa..49753c5ada6292d36e40d383cb55754f658c991d 100644
+--- a/CITATION.cff
++++ b/CITATION.cff
+@@ -7,10 +7,9 @@ authors:
+     given-names: Christopher D.
+     email: galizur@gmail.com
+-version: 0.1.0
+-date-released: 2026-10-01
++version: 0.1.1-dev
+ repository-code: "https://github.com/long-mathematics/quantum-polylogarithms-finite-dilogarithms"
+ url: "https://github.com/long-mathematics/quantum-polylogarithms-finite-dilogarithms"
+ license: MIT
+-abstract: "Two research manuscripts and reproducible checks concerning fixed-parameter quantum polylogarithm relations and raw finite quantum-dilogarithm schemes. The general finite-etale result is conditional on a specified dual-number realization hypothesis."
++abstract: "Two research manuscripts and reproducible checks concerning fixed-parameter quantum polylogarithm relations and raw finite quantum-dilogarithm schemes. The revised finite-etale proof includes universal-ring realization and normalized reconstruction over dual numbers; the manuscripts remain internally audited research drafts."
+ keywords:
+   - quantum polylogarithms
+diff --git a/Makefile b/Makefile
+index 70dfcdb2f813354fe1df5e4adf71ef810470d07c..ac50f5362cf023c8b6b1be308c3085cfef919079 100644
+--- a/Makefile
++++ b/Makefile
+@@ -12,4 +12,5 @@ verify-exact:
+ 	mkdir -p verification
+ 	$(PYTHON) scripts/verify_rw_extensions.py > verification/finite_exact.txt
++	$(PYTHON) scripts/verify_rigidity_identities.py > verification/rigidity_exact.txt
+ 	$(PYTHON) scripts/checks_absolute.py --mode exact --output verification/quantum_exact.json
+ 
+diff --git a/PROVENANCE.md b/PROVENANCE.md
+index 50b79f5fd73f900f6396b70f1c7d3840c78e7028..bec824937686e8bd34a1b4f88f9c018ee40734f7 100644
+--- a/PROVENANCE.md
++++ b/PROVENANCE.md
+@@ -1,5 +1,5 @@
+ # Source and version provenance
+ 
+-## This release
++## Release history and current revision
+ 
+ The initial GitHub release is dated **October 1, 2026**. Earlier dates in the research history are drafting dates, not claims of public availability or priority. Both public manuscripts name Christopher D. Long as author.
+@@ -7,5 +7,5 @@ The initial GitHub release is dated **October 1, 2026**. Earlier dates in the re
+ The functional manuscript is based on the September 22, 2026, sole-author version 2 of *Rational-Exponential Iterated Integrals and Quantum Polylogarithms*. It includes the absolute fixed-parameter coefficient-field extension. The alternate titles *Quantum Polylogarithms: Residue Modules, Iterated Integrals, and Pentagon Operators* and *Quantum Fourier Letters and Iterated Integrals* refer to earlier formulations, not additional papers in this release.
+ 
+-The finite-equation manuscript is based on the September 21, 2026 working note *Finite quantum dilogarithms: normalization exceptions, infinitesimal rigidity, and effective degree bounds*. The release makes its general infinitesimal criterion explicitly conditional, retains the unconditional low-order certificates and degree bounds, and updates the current-source comparison.
++The finite-equation manuscript is based on the September 21, 2026 working note *Finite quantum dilogarithms: normalization exceptions, infinitesimal rigidity, and effective degree bounds*. The initial `v0.1.0` release made its general infinitesimal criterion explicitly conditional, retained the unconditional low-order certificates and degree bounds, and updated the current-source comparison. The subsequent October 1 main-branch revision discharges that hypothesis by a universal normalized-ring argument and intrinsic reconstruction over dual numbers. The earlier tag and release assets are not rewritten.
+ 
+ ## Primary references checked for the release
+@@ -15,5 +15,5 @@ The finite-equation manuscript is based on the September 21, 2026 working note *
+ - Alexander B. Goncharov, *Quantum polylogarithms*, [arXiv:2601.00472v1](https://arxiv.org/abs/2601.00472v1), January 1, 2026. The Fourier integrals, modular difference equations, and existing shuffle structure originate in this work.
+ - Alexander B. Goncharov, *The pentagon relation for the quantum dilogarithm and quantized M0,5*, [arXiv:0706.4054](https://arxiv.org/abs/0706.4054). The operator appendix specifies the version and imported common-domain/covariance results.
+-- Pavel Etingof, Dmitri Nikshych, and Viktor Ostrik, *On fusion categories*, [arXiv:math/0203060](https://arxiv.org/abs/math/0203060), Annals of Mathematics 162 (2005), 581–642. The finite-paper conditional argument uses first-order rigidity, not merely finiteness of equivalence classes.
++- Pavel Etingof, Dmitri Nikshych, and Viktor Ostrik, *On fusion categories*, [arXiv:math/0203060](https://arxiv.org/abs/math/0203060), Annals of Mathematics 162 (2005), 581–642. The finite-paper infinitesimal argument uses Theorem 2.27 and the first-order interpretation in Section 7.1, not merely finiteness of equivalence classes.
+ 
+ The bibliographies also credit the classical iterated-integral, shuffle, difference-algebra, and categorical ingredients. This focused source check does not establish literature-wide novelty. In particular, algebraicity and finiteness were already goals/results of RW v1; they should not be described as results of this project lost only when v2 appeared.
+@@ -22,2 +22,8 @@ The bibliographies also credit the classical iterated-integral, shuffle, differe
+ 
+ The original exact finite verifier and the recovered functional verification scripts are included with their scope disclaimers. All three functional runs (exact, mixed-contour, and earlier contour/Laplace comparisons) and the finite verifier were executed again for this release. Reports in `verification/` describe the actual checks and software environment; no earlier numerical exploration is promoted to a certificate without a reproducible script.
++
++## Focused audit incorporated in the rigidity revision
++
++The source check used RW **v2**, Sections 5.4–5.5 and Appendix B, together with ENO Theorem 2.27 and Section 7.1. The displayed completeness calculation on printed page 30 of the RW v2 PDF has coefficient `N(N+d)/d^2`; the generator formulas instead give `N/d^2 + N/d = 1`. The revised manuscript derives the correction and the correlation identity over the actual normalized coordinate ring, without passing to its radical. HTML and PDF equation numbers differ, so the reference is to the section and printed page, not an unqualified equation number.
++
++The reconstruction argument uses a generator of the free distinguished line, canonical normalization on `Hom(1,rho^2)`, common-unit cancellation, and explicit associator/tensorator transport. It does not identify arbitrary basis-dependent coefficients as categorical invariants. The [audit record](audits/2026-10-01-hypothesis-3-1.md) and `scripts/verify_rigidity_identities.py` record these checks and their limitations. No independent review, formalization, new release timestamp, or literature-wide priority claim is implied by this revision.
+diff --git a/README.md b/README.md
+index 86e89bbf647320b38d460a7fdfc4943d22bb8511..a9ae14488b39e9432f950cdbfac6c41553aa275d 100644
+--- a/README.md
++++ b/README.md
+@@ -3,5 +3,5 @@
+ Christopher D. Long · [galizur@gmail.com](mailto:galizur@gmail.com)
+ 
+-Two research manuscripts on functional relations, iterated integrals, finite quantum-dilogarithm equations, and arithmetic rigidity. Initial public research-draft release: **October 1, 2026**.
++Two research manuscripts on functional relations, iterated integrals, finite quantum-dilogarithm equations, and arithmetic rigidity. Initial public research-draft release: **October 1, 2026**. The current main-branch revision incorporates the audited infinitesimal-rigidity proof; the historical `v0.1.0` release remains unchanged.
+ 
+ ## Manuscripts
+@@ -19,5 +19,5 @@ Here **absolute** means that the functional coefficient field is explicitly pres
+ ### 2. Finite Quantum Dilogarithms
+ 
+-*Normalization Exceptions, Effective Degree Bounds, and an Infinitesimal Rigidity Criterion*
++*Normalization Exceptions, Infinitesimal Rigidity, and Effective Degree Bounds*
+ 
+ [PDF](papers/finite_quantum_dilogarithms.pdf) · [LaTeX source](papers/finite_quantum_dilogarithms.tex)
+@@ -25,5 +25,5 @@ Here **absolute** means that the functional coefficient field is explicitly pres
+ The paper studies the **raw** finite equations, including small-order points excluded by an additional normalization convention. It gives exact exceptional solutions, complete saturated calculations for two low-order metrics, Fourier–Weil eigenspace degree bounds, and an elementary recovery of a known elementary-abelian two-group obstruction.
+ 
+-**The general finite-étale theorem is conditional on Hypothesis 3.1**, a specified realization and reconstruction statement over dual numbers. The small-order certificates and degree bounds do not depend on that hypothesis. No general reducedness, Stark reciprocity, or unitary Galois-conjugate theorem is announced unconditionally.
++**Theorem 3.1 proves finite étaleness of the actual raw solution scheme**, including reducedness of the localized defining ideal. The proof discharges the initial release’s Hypothesis 3.1 by a universal-ring Leavitt realization, a flat split skeleton, and normalized scalar reconstruction invariant under strong monoidal equivalences. It records the corrected completeness coefficient in RW v2 and includes the associator/tensorator argument. The exact low-order certificates and degree bounds remain logically independent of this proof. No Stark reciprocity or unitary Galois-conjugate theorem is asserted.
+ 
+ ## Status and attribution
+@@ -33,5 +33,5 @@ These manuscripts were developed with AI assistance and checked internally. They
+ Radchenko–Wheeler's finite pentagon, algebraicity, and finiteness results, and Appleby–Flammia–Kopp's all-rank twisted-convolution result and modular-cocycle dictionary, are cited background. The small-order normalization exceptions are acknowledged in Radchenko–Wheeler v2, Remark 3; this release makes no priority claim for noticing them.
+ 
+-See [research status](RESEARCH_STATUS.md) and [source/version provenance](PROVENANCE.md) for exact boundaries.
++See [research status](RESEARCH_STATUS.md), [source/version provenance](PROVENANCE.md), and the [focused realization/reconstruction audit](audits/2026-10-01-hypothesis-3-1.md) for exact boundaries.
+ 
+ ## Reproducible checks
+@@ -49,4 +49,5 @@ The individual checks are:
+ ```sh
+ python scripts/verify_rw_extensions.py
++python scripts/verify_rigidity_identities.py
+ python scripts/checks_absolute.py --mode exact --output verification/quantum_exact.json
+ python scripts/checks_absolute.py --mode numeric --output verification/quantum_numeric.json
+@@ -54,10 +55,11 @@ python scripts/checks_v1.py --output verification/quantum_contours.json
+ ```
+ 
+-`checks_v1.py` retains its historical filename; its contour and normalization tests remain applicable to the current functional manuscript. The tracked [verification reports](verification/) record the initial release runs. Both compiled PDFs are intentionally tracked. Build artifacts such as `.aux` and `.log` files are ignored.
++`checks_v1.py` retains its historical filename; its contour and normalization tests remain applicable to the current functional manuscript. The tracked [verification reports](verification/) include the current regression runs; `RELEASE_CHECKS.json` remains the historical initial-release record. The new rigidity checks cover scalar identities, representative character projectors, and formal reconstruction contractions. They do not certify the arbitrary-group categorical proof. Both compiled PDFs are intentionally tracked. Build artifacts such as `.aux` and `.log` files are ignored.
+ 
+ ## Contents
+ 
+ - `papers/`: the two standalone LaTeX sources and their PDFs.
+-- `scripts/`: exact finite certificates and supplementary analytic checks.
++- `scripts/`: exact finite certificates, rigidity regression checks, and supplementary analytic checks.
++- `audits/`: the focused ring-level and monoidal-gauge audit.
+ - `verification/`: outputs and environment information from the release checks.
+ - `.github/workflows/verification.yml`: repeatable verification and PDF builds.
+diff --git a/RELEASE_NOTES.md b/RELEASE_NOTES.md
+index e4e16f901ef81c070973be2335b53ecb12063613..f0e614751b7374cac5ee7585c872384b3de696f6 100644
+--- a/RELEASE_NOTES.md
++++ b/RELEASE_NOTES.md
+@@ -1,2 +1,12 @@
++# Unreleased — audited infinitesimal-rigidity revision
++
++The main-branch revision discharges the original Hypothesis 3.1. The finite manuscript now proves finite étaleness of the actual raw scheme using a universal normalized-ring Leavitt realization, a flat split skeleton, normalized scalar reconstruction, and ENO first-order rigidity. It corrects the displayed RW completeness coefficient and includes the associator/tensorator argument excluding basis-gauge motions.
++
++The title, abstract, arithmetic consequences, companion-paper reference, README, citation metadata, and research/provenance ledgers are synchronized. Exact rigidity regression checks supplement the existing verifiers. These finite checks and successful PDF builds are not a formal certification of the arbitrary-group categorical proof.
++
++The historical release below and its tag/assets are unchanged. No new tagged release is created by this revision.
++
++---
++
+ # Initial public research drafts — v0.1.0
+ 
+diff --git a/RESEARCH_STATUS.md b/RESEARCH_STATUS.md
+index 1f8d145996e1ec10d999653c5a8f8b57e02ed52b..7352248afef5e2f5f6e28196ea8c73616c6b7ca9 100644
+--- a/RESEARCH_STATUS.md
++++ b/RESEARCH_STATUS.md
+@@ -1,3 +1,3 @@
+-# Research status — initial public draft
++# Research status — audited infinitesimal-rigidity revision
+ 
+ **Date:** October 1, 2026. This is a claim/dependency ledger, not an independent referee report or a certificate of literature-wide novelty.
+@@ -25,14 +25,15 @@ The October 1 cleanup retains the stronger September 22 version-2 coefficient-fi
+ | Anisotropic four-point scheme | Exactly one reduced rational point, certified by a saturated Gröbner basis. |
+ | Eigenspace degree bounds | Uses the existing finiteness theorem; does not depend on the general finite-étale criterion. Cubic Bézout bound in general and quadratic bound in prime order. |
